@@ -7,9 +7,10 @@ angular.module('angularApp.controllers', [])
 
         $scope.addPerson = function() {
             var person = {};
-            person.id = $scope.persons.length;
-            person.firstname = "DemoFirstname" + $scope.persons.length;
-            person.lastname = "DemoLastname" + $scope.persons.length;
+            person.id = $scope.persons.length + 1;
+            person.firstname = "DemoFirstname" + person.id;
+            person.lastname = "DemoLastname" + person.id;
+            person.lastname = "DemoLastname" + person.id;
             personService.addPerson(person).success(function (response) {
                 $scope.persons.push(person);
             });
