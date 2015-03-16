@@ -1,6 +1,6 @@
 # Liferay - Spring MVC - Thymeleaf - Angular - Portlet
 
-After fighting with several tutorials which have not fully filled my demands I decided to implement my Liferay Spring MVC Portlet from scatch with all the feature i was used to have with a standalone Spring MVC application:
+After fighting with several tutorials which have not fully filled my demands I decided to implement my Liferay Spring MVC Portlet from scatch with all the feature i was used to have in a standalone Spring MVC application:
 
  * RestController for AngularJS
  * ViewController with Thymeleaf
@@ -23,7 +23,7 @@ Run the maven command to install the portlet to your liferay installation.
 mvn clean install liferay:deploy -P liferay
 ```
 
-Do not forget to configure the params in Maven.  In my case I set the profile 'liferay' for executing the tasks which is defined in <user_home>/.m2/settings.xml:
+Do not forget to configure the liferay params in Maven. In my case I set the profile 'liferay' for executing the tasks which is defined in my <user_home>/.m2/settings.xml:
 
 ```xml
 <profile>
@@ -49,4 +49,5 @@ Notes:
 Send me an [Email](mailto:wwa2007@nurfuerspam.de) or send me a merge request. :)
 
 Cheers from Vienna, Austria
+Toni
 
