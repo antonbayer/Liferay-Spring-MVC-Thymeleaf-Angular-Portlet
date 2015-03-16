@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xml:lang="en" lang="en">
+<head>
+    <script type="text/javascript" th:inline="javascript">
+        var restUrl = [[${restUrl}]];
+    </script>
+</head>
+<body>
+
+<h2 th:text="#{welcome}"></h2>
+<h3 th:text="#{description}"></h3>
+
+<hr/>
+
+<div>
+    <h4>Thymeleaf App</h4>
+    <table id="persons">
+        <tbody>
+        <tr th:each="person : ${persons}">
+            <td th:text="${person.id}"></td>
+            <td th:text="${person.firstname}"></td>
+            <td th:text="${person.lastname}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr/>
+
+<div id="angularApp">
+    <div ng-controller="personController">
+        <h4>Angular App</h4>
+        <a ng-click="addPerson()" href="javascript:">add Person</a>
+        <table>
+            <tbody>
+                <tr ng-repeat="person in persons">
+                    <td>{{person.id}}</td>
+                    <td>{{person.firstname}}</td>
+                    <td>{{person.lastname}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

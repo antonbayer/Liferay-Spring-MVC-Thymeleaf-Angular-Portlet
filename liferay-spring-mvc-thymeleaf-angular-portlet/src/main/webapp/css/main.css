@@ -1,0 +1,18 @@
+.button_gap {
+    margin-right: 1% !important;
+}
+
+.select-studium {
+    width: 55% !important;
+}
+
+.small-form-container {
+    float: left;
+    width: 25%;
+    height: 140px;
+    margin-right: 1%;
+    margin-bottom: 1%;}
+
+.clear-left {
+    clear:left;
+}
