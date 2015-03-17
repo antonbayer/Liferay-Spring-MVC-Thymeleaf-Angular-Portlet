@@ -1,8 +1,8 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,5 +17,17 @@ public class TestPersonViewController extends PersonViewController {
     @RequestMapping(value = "/view")
     public String view(ModelMap model) {
         return super.view(model);
+    }
+
+    @RequestMapping(value = "/render")
+    public String render(ModelMap model) {
+        return super.render(model);
+    }
+
+
+
+    @RequestMapping(value = "/action")
+    public void action() {
+        super.action();
     }
 }

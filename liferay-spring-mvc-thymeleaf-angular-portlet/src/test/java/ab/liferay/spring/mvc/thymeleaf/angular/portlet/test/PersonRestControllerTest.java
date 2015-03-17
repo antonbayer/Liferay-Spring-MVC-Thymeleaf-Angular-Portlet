@@ -124,7 +124,7 @@ public class PersonRestControllerTest {
         }
 
         @Bean
-        public TestPersonRestController personRestController(PersonService personService, PortletService portletService) {
+        public TestPersonRestController testPersonRestController(PersonService personService, PortletService portletService) {
             return new TestPersonRestController(personService, portletService);
         }
     }

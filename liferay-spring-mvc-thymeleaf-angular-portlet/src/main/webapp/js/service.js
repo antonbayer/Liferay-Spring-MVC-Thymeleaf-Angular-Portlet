@@ -6,14 +6,14 @@ angular.module('angularApp.services', [])
         api.getPersons = function() {
             return $http({
                 method: 'GET',
-                url: restUrl
+                url: resourceURL
             });
         };
 
         api.addPerson = function(person) {
             return $http({
                 method: 'POST',
-                url: restUrl,
+                url: resourceURL,
                 data: person
             });
         };

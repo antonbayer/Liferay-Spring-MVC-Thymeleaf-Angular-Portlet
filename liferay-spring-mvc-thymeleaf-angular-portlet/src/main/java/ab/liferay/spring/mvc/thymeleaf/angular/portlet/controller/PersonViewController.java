@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
+import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceURL;
 
@@ -32,16 +34,48 @@ public class PersonViewController extends ViewController {
     @RequestMapping
     public String view(ModelMap model) {
 
-        _log.debug("handle zulassen start view");
+        _log.debug("handle view");
 
         RenderResponse response = portletService.getRenderResponse();
 
-        ResourceURL restUrl = response.createResourceURL();
-        restUrl.setResourceID(PersonRestController.REST_RESOURCE);
-        model.addAttribute("restUrl", restUrl.toString());
-
         model.addAttribute("persons", personService.getPersons());
 
+        ResourceURL resourceURL = response.createResourceURL();
+        resourceURL.setResourceID(PersonRestController.REST_RESOURCE);
+        model.addAttribute("resourceURL", resourceURL.toString());
+
+        PortletURL renderUrl = response.createRenderURL();
+        renderUrl.setParameter("view", "render");
+        renderUrl.setParameter("personId", String.valueOf(personService.getPersons().get(0).getId()));
+        model.addAttribute("renderUrl", renderUrl.toString());
+
+        PortletURL actionUrl = response.createActionURL();
+        actionUrl.setParameter("view", "action");
+        actionUrl.setParameter("personId", String.valueOf(personService.getPersons().get(0).getId()));
+        model.addAttribute("actionUrl", actionUrl.toString());
+
         return "index/index";
+    }
+
+    @RenderMapping(params = {"personId"})
+    @RequestMapping
+    public String render(ModelMap model) {
+
+        _log.debug("handle render");
+
+        long personId = Long.valueOf(portletService.getRenderRequest().getParameter("personId"));
+
+        return "index/render";
+    }
+
+    @ActionMapping(params = {"personId"})
+    @RequestMapping
+    public void action() {
+
+        _log.debug("handle action");
+
+        long personId = Long.valueOf(portletService.getActionRequest().getParameter("personId"));
+
+        portletService.getActionResponse().setRenderParameter("personId", String.valueOf(personId));
     }
 }

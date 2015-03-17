@@ -1,9 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonRestController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

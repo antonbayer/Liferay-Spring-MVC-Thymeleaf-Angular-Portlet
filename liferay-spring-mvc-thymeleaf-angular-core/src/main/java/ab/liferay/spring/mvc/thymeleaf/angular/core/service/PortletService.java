@@ -45,7 +45,7 @@ public class PortletService {
 
     public ActionRequest getActionRequest() {
         PortletRequest o = getPortletRequest();
-        if (o instanceof ResourceRequest) {
+        if (o instanceof ActionRequest) {
             return ((ActionRequest) o);
         }
         throw new RuntimeException("no ActionRequest.");
@@ -53,7 +53,7 @@ public class PortletService {
 
     public EventRequest getEventRequest() {
         PortletRequest o = getPortletRequest();
-        if (o instanceof ResourceRequest) {
+        if (o instanceof EventRequest) {
             return ((EventRequest) o);
         }
         throw new RuntimeException("no EventRequest.");
@@ -85,7 +85,7 @@ public class PortletService {
 
     public ActionResponse getActionResponse() {
         PortletResponse o = getPortletResponse();
-        if (o instanceof ResourceResponse) {
+        if (o instanceof ActionResponse) {
             return ((ActionResponse) o);
         }
         throw new RuntimeException("no ActionResponse.");
@@ -93,7 +93,7 @@ public class PortletService {
 
     public EventResponse getEventResponse() {
         PortletResponse o = getPortletResponse();
-        if (o instanceof ResourceResponse) {
+        if (o instanceof EventResponse) {
             return ((EventResponse) o);
         }
         throw new RuntimeException("no EventResponse.");

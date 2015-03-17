@@ -6,13 +6,15 @@
       xmlns:th="http://www.thymeleaf.org" xml:lang="en" lang="en">
 <head>
     <script type="text/javascript" th:inline="javascript">
-        var restUrl = [[${restUrl}]];
+        var resourceURL = [[${resourceURL}]];
     </script>
 </head>
 <body>
 
 <h2 th:text="#{welcome}"></h2>
 <h3 th:text="#{description}"></h3>
+<div><a th:href="${renderUrl}">to render</a></div>
+<div><a th:href="${actionUrl}">to action</a></div>
 
 <hr/>
 
