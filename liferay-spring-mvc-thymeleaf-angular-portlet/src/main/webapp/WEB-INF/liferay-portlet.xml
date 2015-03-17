@@ -1,21 +1,25 @@
 <?xml version="1.0"?>
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN"
+        "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
 <liferay-portlet-app>
 
-	<portlet>
+    <portlet>
 
-		<portlet-name>liferay-spring-mvc-thymeleaf-angular-portlet</portlet-name>
-		<instanceable>false</instanceable>
+        <portlet-name>liferay-spring-mvc-thymeleaf-angular-portlet</portlet-name>
+        <instanceable>false</instanceable>
 
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
 
         <header-portlet-css>/css/main.css</header-portlet-css>
-		<header-portlet-javascript>/js/lib/angular-1.3.14.js</header-portlet-javascript>
-        <footer-portlet-javascript>/js/controller.js</footer-portlet-javascript>
-        <footer-portlet-javascript>/js/service.js</footer-portlet-javascript>
-        <footer-portlet-javascript>/js/app.js</footer-portlet-javascript>
 
-	</portlet>
+        <header-portlet-javascript>/js/angular/angular-1.3.14.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+        <footer-portlet-javascript>/js/angular/controller.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/angular/service.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/angular/app.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/jquery/app.js</footer-portlet-javascript>
+
+    </portlet>
 
 </liferay-portlet-app>

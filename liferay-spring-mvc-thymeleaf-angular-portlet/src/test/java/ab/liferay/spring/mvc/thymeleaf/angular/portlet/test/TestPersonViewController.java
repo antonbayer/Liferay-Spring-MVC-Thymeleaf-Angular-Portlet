@@ -6,6 +6,8 @@ import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.portlet.WindowStateException;
+
 @RequestMapping("/test")
 public class TestPersonViewController extends PersonViewController {
 
@@ -15,7 +17,7 @@ public class TestPersonViewController extends PersonViewController {
     }
 
     @RequestMapping(value = "/view")
-    public String view(ModelMap model) {
+    public String view(ModelMap model) throws WindowStateException {
         return super.view(model);
     }
 
@@ -23,8 +25,6 @@ public class TestPersonViewController extends PersonViewController {
     public String render(ModelMap model) {
         return super.render(model);
     }
-
-
 
     @RequestMapping(value = "/action")
     public void action() {

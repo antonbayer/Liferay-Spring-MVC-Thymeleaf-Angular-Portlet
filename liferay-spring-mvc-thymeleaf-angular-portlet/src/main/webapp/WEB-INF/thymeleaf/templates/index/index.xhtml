@@ -2,8 +2,8 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xml:lang="en" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <script type="text/javascript" th:inline="javascript">
         var resourceURL = [[${resourceURL}]];
@@ -13,14 +13,19 @@
 
 <h2 th:text="#{welcome}"></h2>
 <h3 th:text="#{description}"></h3>
-<div><a th:href="${renderUrl}">to render</a></div>
-<div><a th:href="${actionUrl}">to action</a></div>
+
+<div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
+<div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
 
 <hr/>
 
 <div>
     <h4>Thymeleaf App</h4>
-    <table id="persons">
+
+    <div><a onclick="return updateFragment(this);" data-update="#persons" th:href="${ajaxUrl}"> List with ajax call</a>
+        (First add persons via angular)
+    </div>
+    <table id="persons" th:fragment="personsFragment">
         <tbody>
         <tr th:each="person : ${persons}">
             <td th:text="${person.id}"></td>
