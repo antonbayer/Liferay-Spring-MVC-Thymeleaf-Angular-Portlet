@@ -3,7 +3,7 @@
 After fighting with several tutorials which have not fully filled my demands I decided to implement my Liferay Spring MVC Portlet from scatch with all the feature i was used to have in a standalone Spring MVC application:
 
  * RestController for AngularJS.
- * ViewController with Thymeleaf.
+ * ViewController with Thymeleaf and partial fragment ajax updates via jQuery.
  * @ResponseBody and @RequestBody which are not supported by spring for portlets.
  * full support for integration tests with MockMVC.
  * 100% Java Config.
