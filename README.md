@@ -4,9 +4,9 @@ After playing around with several tutorials which have not fully filled my deman
 
  * RestController for AngularJS.
  * ViewController with Thymeleaf and partial fragment ajax updates via jQuery.
- * @ResponseBody and @RequestBody which are not supported by spring for portlets.
- * full support for integration tests with MockMVC.
- * 100% Java Config.
+ * @ResponseBody and @RequestBody which are not supported by spring for portlets out of the box.
+ * Full support for integration tests with MockMVC.
+ * 100% Java Config and no xml-file at all.
 
 The project consists of 3 Maven dependencies:
 
