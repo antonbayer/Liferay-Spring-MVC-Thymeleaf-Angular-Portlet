@@ -1,5 +1,6 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.service;
 
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
@@ -105,5 +106,25 @@ public class PortletService {
 
     public Locale getLocale() {
         return getPortletRequest().getLocale();
+    }
+
+    public WindowState getWindowStateExclusive() {
+        return LiferayWindowState.EXCLUSIVE;
+    }
+
+    public WindowState getWindowStatePopup() {
+        return LiferayWindowState.POP_UP;
+    }
+
+    public WindowState getWindowStateMaximized() {
+        return LiferayWindowState.MAXIMIZED;
+    }
+
+    public WindowState getWindowStateMinimized() {
+        return LiferayWindowState.MINIMIZED;
+    }
+
+    public WindowState getWindowStateNormal() {
+        return LiferayWindowState.NORMAL;
     }
 }

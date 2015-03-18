@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 @ComponentScan(basePackages = { "ab.liferay.spring.mvc.thymeleaf.angular.core.service" })
 public class CoreConfig {
 
+    public static final String MISSING_PROPERTY_INDICATOR = "??##**!!__";
+
     @Bean
     public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
 
@@ -47,7 +49,7 @@ public class CoreConfig {
                     try {
                         text = resourceBundle.getString(code);
                     }catch (MissingResourceException e) {
-                        text = "??" + code + "_" + locale + "??";
+                        text = MISSING_PROPERTY_INDICATOR + code + "_" + locale;
                     }
 
                     return new MessageFormat(text);

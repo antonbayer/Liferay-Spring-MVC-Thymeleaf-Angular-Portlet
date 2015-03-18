@@ -1,10 +1,15 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.config.CoreConfig;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.config.ThymeleafConfig;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.util.Integration;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -21,15 +26,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.portlet.WindowState;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,38 +67,40 @@ public class PersonViewControllerTest {
     public void setUp() {
         mockMvc = webAppContextSetup(ctx).build();
         Locale.setDefault(Config.LOCALE);
+    }
+
+    @Test
+    public void viewIndex() throws Exception {
+
+        when(portletService.getWindowStateExclusive()).thenReturn(WindowState.NORMAL);
 
         persons = new ArrayList<Person>();
         persons.add(new Person(1, "TestFirstname1", "TestLastname1"));
         persons.add(new Person(2, "TestFirstname2", "TestLastname2"));
         persons.add(new Person(3, "TestFirstname3", "TestLastname3"));
         when(personService.getPersons()).thenReturn(persons);
-    }
 
-    @Test
-    public void viewIndex() throws Exception {
+        ResultActions result = mockMvc.perform(get("/test/view").locale(Locale.getDefault()));
+        result.andExpect(status().isOk())
+                .andExpect(view().name("index/index"))
+                .andExpect(model().attributeExists("persons"))
+                .andExpect(model().attributeExists("resourceURL"));
 
-//        ResultActions result = mockMvc.perform(get("/test/view").locale(Locale.getDefault()));
-//        result.andExpect(status().isOk())
-//                .andExpect(view().name("index/index"))
-//                .andExpect(model().attributeExists("persons"))
-//                .andExpect(model().attributeExists("resourceURL"));
-//
-//        String contentAsString = result.andReturn().getResponse().getContentAsString();
-//        assertThat(contentAsString).isNotEmpty();
-//        assertFalse(contentAsString.contains("??"));
-//
-//        Document parse = Jsoup.parse(contentAsString);
-//        Elements elements = parse.select("table#persons > tbody > tr");
-//        List<Person> servicePersons = personService.getPersons();
-//        assertEquals(elements.size(), servicePersons.size());
-//        for (int i = 0; i < elements.size() || i< servicePersons.size(); i++) {
-//            Element tr = elements.get(i);
-//            Person person = servicePersons.get(i);
-//            assertEquals(tr.children().get(0).text(), String.valueOf(person.getId()));
-//            assertEquals(tr.children().get(1).text(), person.getFirstname());
-//            assertEquals(tr.children().get(2).text(), person.getLastname());
-//        }
+        String contentAsString = result.andReturn().getResponse().getContentAsString();
+        assertThat(contentAsString).isNotEmpty();
+        assertFalse(contentAsString.contains(CoreConfig.MISSING_PROPERTY_INDICATOR));
+
+        Document parse = Jsoup.parse(contentAsString);
+        Elements elements = parse.select("table#persons > tbody > tr");
+        List<Person> servicePersons = personService.getPersons();
+        assertEquals(elements.size(), servicePersons.size());
+        for (int i = 0; i < elements.size() || i < servicePersons.size(); i++) {
+            Element tr = elements.get(i);
+            Person person = servicePersons.get(i);
+            assertEquals(tr.children().get(0).text(), String.valueOf(person.getId()));
+            assertEquals(tr.children().get(1).text(), person.getFirstname());
+            assertEquals(tr.children().get(2).text(), person.getLastname());
+        }
     }
 
     @Import(ThymeleafConfig.class)

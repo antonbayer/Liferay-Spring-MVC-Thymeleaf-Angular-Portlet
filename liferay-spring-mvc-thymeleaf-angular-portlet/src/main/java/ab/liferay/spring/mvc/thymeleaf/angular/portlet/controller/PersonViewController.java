@@ -5,7 +5,6 @@ import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +56,7 @@ public class PersonViewController extends ViewController {
 
         PortletURL ajaxUrl = response.createRenderURL();
         ajaxUrl.setParameter("personsFragment", "");
-        ajaxUrl.setWindowState(LiferayWindowState.EXCLUSIVE);
+        ajaxUrl.setWindowState(portletService.getWindowStateExclusive());
         model.addAttribute("ajaxUrl", ajaxUrl.toString());
 
         return "index/index";
