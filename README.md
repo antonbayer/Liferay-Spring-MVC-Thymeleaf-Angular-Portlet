@@ -1,6 +1,6 @@
 # Liferay - Spring MVC - Thymeleaf - Angular - Portlet
 
-After playing around with several tutorials which have not fully filled my demands I decided to implement my Liferay Spring MVC Portlet from scatch with all the feature i was used to have in a standalone Spring MVC application:
+After playing around with several tutorials which have not fully filled my demands I decided to implement my Liferay Spring MVC Portlet from scratch with all the features I was used to have in a standalone Spring MVC application:
 
  * RestController for AngularJS.
  * ViewController with Thymeleaf and partial fragment ajax updates via jQuery.
