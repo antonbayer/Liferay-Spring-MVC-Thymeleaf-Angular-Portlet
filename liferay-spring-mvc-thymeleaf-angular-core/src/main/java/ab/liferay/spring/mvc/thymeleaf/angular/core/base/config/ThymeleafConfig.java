@@ -53,11 +53,6 @@ public class ThymeleafConfig {
         return templateEngine;
     }
 
-    private boolean getThymeleafCacheable() {
-        String thymeleafCacheable = System.getProperty(SYSTEM_PROPERTY_THYMELEAF_CACHEABLE);
-        return thymeleafCacheable == null ? true : !thymeleafCacheable.equalsIgnoreCase(Boolean.FALSE.toString()); // always cacheable (true), expect the string 'false'
-    }
-
     @Bean
     public AbstractDialect staticContentDialect(final PortletService portletService) {
         final String ATTR_NAME = "src";
@@ -102,5 +97,10 @@ public class ThymeleafConfig {
                 return processors;
             }
         };
+    }
+
+    private boolean getThymeleafCacheable() {
+        String thymeleafCacheable = System.getProperty(SYSTEM_PROPERTY_THYMELEAF_CACHEABLE);
+        return thymeleafCacheable == null ? true : !thymeleafCacheable.equalsIgnoreCase(Boolean.FALSE.toString()); // always cacheable (true), expect the string 'false'
     }
 }

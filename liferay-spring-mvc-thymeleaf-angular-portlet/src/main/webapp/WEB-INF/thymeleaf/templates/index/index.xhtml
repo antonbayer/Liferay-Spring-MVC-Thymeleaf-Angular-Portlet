@@ -13,7 +13,8 @@
 
 <h2 th:text="#{welcome}"></h2>
 <h3 th:text="#{description}"></h3>
-<img sc:src="images/image.jpg"/>
+
+<div><img sc:src="images/image.jpg"/></div>
 
 <div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
 <div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
@@ -40,12 +41,12 @@
 <hr/>
 
 <div id="angularApp">
-    <div ng-controller="personController">
+    <div ng-controller="personController as personCtrl">
         <h4>Angular App</h4>
-        <a ng-click="addPerson()" href="javascript:">add Person</a>
+        <a ng-click="personCtrl.addPerson()" href="javascript:">add Person</a>
         <table>
             <tbody>
-                <tr ng-repeat="person in persons">
+            <tr ng-repeat="person in personCtrl.persons">
                     <td>{{person.id}}</td>
                     <td>{{person.firstname}}</td>
                     <td>{{person.lastname}}</td>
