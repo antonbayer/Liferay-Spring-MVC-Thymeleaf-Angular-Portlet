@@ -1,4 +1,4 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.service;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;

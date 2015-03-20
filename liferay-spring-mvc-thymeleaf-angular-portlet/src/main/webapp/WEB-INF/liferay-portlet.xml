@@ -11,14 +11,14 @@
 
         <requires-namespaced-parameters>false</requires-namespaced-parameters>
 
-        <header-portlet-css>/css/main.css</header-portlet-css>
+        <header-portlet-css>/static/css/main.css</header-portlet-css>
 
-        <header-portlet-javascript>/js/angular/angular-1.3.14.js</header-portlet-javascript>
-        <header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
-        <footer-portlet-javascript>/js/angular/controller.js</footer-portlet-javascript>
-        <footer-portlet-javascript>/js/angular/service.js</footer-portlet-javascript>
-        <footer-portlet-javascript>/js/angular/app.js</footer-portlet-javascript>
-        <footer-portlet-javascript>/js/jquery/app.js</footer-portlet-javascript>
+        <header-portal-javascript>/static/js/angular/angular-1.3.14.js</header-portal-javascript>
+        <header-portal-javascript>/static/js/jquery/jquery-1.11.1.min.js</header-portal-javascript>
+        <footer-portlet-javascript>/static/js/angular/controller.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/static/js/angular/service.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/static/js/angular/app.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/static/js/jquery/app.js</footer-portlet-javascript>
 
     </portlet>
 

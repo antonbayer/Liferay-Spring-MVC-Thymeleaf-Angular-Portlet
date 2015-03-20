@@ -1,6 +1,6 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.adapter;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletRequestBody;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.PortletRequestBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebArgumentResolver;

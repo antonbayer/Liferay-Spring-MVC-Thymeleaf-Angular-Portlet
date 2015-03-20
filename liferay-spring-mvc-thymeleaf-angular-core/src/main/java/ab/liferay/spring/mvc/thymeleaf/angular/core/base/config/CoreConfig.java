@@ -1,8 +1,8 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.config;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.config;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.adapter.PortletRequestBodyImpl;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.adapter.PortletResponseBodyImpl;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter.PortletRequestBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter.PortletResponseBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 @Configuration
 @Import(ThymeleafConfig.class)
-@ComponentScan(basePackages = { "ab.liferay.spring.mvc.thymeleaf.angular.core.service" })
+@ComponentScan(basePackages = {"ab.liferay.spring.mvc.thymeleaf.angular.core.base.service", "ab.liferay.spring.mvc.thymeleaf.angular.core.controller"})
 public class CoreConfig {
 
     public static final String MISSING_PROPERTY_INDICATOR = "??##**!!__";
@@ -45,15 +45,15 @@ public class CoreConfig {
                 PortletConfig portletConfig = portletService.getPortletConfig();
                 ResourceBundle resourceBundle = portletConfig.getResourceBundle(locale);
 
-                    String text;
-                    try {
-                        text = resourceBundle.getString(code);
-                    }catch (MissingResourceException e) {
-                        text = MISSING_PROPERTY_INDICATOR + code + "_" + locale;
-                    }
+                String text;
+                try {
+                    text = resourceBundle.getString(code);
+                } catch (MissingResourceException e) {
+                    text = MISSING_PROPERTY_INDICATOR + code + "_" + locale;
+                }
 
-                    return new MessageFormat(text);
-             }
+                return new MessageFormat(text);
+            }
         };
         return messageSource;
     }

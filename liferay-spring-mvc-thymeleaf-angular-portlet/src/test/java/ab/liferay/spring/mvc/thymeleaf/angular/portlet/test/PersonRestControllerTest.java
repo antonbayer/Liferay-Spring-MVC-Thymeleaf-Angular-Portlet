@@ -1,7 +1,7 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.util.Integration;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonRestController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
@@ -45,10 +45,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 public class PersonRestControllerTest {
 
     @Autowired
-    private PersonService personService;
-    @Autowired
     protected PortletService portletService;
-
+    @Autowired
+    private PersonService personService;
     @Autowired
     private WebApplicationContext ctx;
 

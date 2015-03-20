@@ -1,6 +1,6 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import org.springframework.ui.ModelMap;

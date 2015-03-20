@@ -1,4 +1,4 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.util;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

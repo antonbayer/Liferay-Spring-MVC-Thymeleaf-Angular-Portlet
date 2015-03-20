@@ -1,9 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletRequestBody;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletResponseBody;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.ViewController;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.PortletRequestBody;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.PortletResponseBody;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.ViewController;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;

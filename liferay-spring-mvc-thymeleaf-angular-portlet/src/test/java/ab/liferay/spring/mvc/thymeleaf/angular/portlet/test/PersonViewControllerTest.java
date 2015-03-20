@@ -1,9 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.config.CoreConfig;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.config.ThymeleafConfig;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.util.Integration;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.config.CoreConfig;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.config.ThymeleafConfig;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import org.jsoup.Jsoup;

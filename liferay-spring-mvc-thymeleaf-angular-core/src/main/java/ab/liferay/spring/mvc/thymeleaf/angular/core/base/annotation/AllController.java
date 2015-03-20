@@ -1,4 +1,4 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.annotation;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Controller
-@RequestMapping("help")
-public @interface HelpController {
+@RequestMapping({"view", "edit", "help"})
+public @interface AllController {
     String value() default "";
 }

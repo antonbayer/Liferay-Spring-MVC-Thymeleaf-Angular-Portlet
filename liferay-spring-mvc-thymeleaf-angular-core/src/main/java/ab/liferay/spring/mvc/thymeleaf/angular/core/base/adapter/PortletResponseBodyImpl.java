@@ -1,7 +1,7 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.adapter;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletResponseBody;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.util.Integration;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.PortletResponseBody;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.web.context.request.NativeWebRequest;

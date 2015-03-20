@@ -59,7 +59,7 @@
                 <configuration>
                     <forkCount>2</forkCount>
                     <reuseForks>false</reuseForks>
-                    <groups>ab.liferay.spring.mvc.thymeleaf.angular.core.util.Integration</groups>
+                    <groups>ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration</groups>
                 </configuration>
                 <dependencies>
                     <dependency>

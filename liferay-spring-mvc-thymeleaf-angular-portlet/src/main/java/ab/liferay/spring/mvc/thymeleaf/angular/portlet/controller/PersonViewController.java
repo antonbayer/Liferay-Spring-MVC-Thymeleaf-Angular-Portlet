@@ -1,7 +1,8 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.ViewController;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.ViewController;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.util.StaticUtil;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -57,6 +58,8 @@ public class PersonViewController {
         ajaxUrl.setParameter("personsFragment", "");
         ajaxUrl.setWindowState(portletService.getWindowStateExclusive());
         model.addAttribute("ajaxUrl", ajaxUrl.toString());
+
+        model.addAttribute("fileUrl", StaticUtil.getStaticContentUrl(portletService.getRenderResponse(), "image.jpg"));
 
         return "index/index";
     }

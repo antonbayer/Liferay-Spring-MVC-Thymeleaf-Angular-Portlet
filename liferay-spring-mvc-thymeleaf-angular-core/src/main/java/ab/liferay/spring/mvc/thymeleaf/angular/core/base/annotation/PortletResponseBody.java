@@ -1,4 +1,4 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.annotation;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation;
 
 import java.lang.annotation.*;
 

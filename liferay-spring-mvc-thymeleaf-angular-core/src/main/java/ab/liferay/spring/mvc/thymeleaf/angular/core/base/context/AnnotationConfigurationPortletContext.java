@@ -1,4 +1,4 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.context;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.base.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
