@@ -7,7 +7,7 @@ After playing around with several tutorials which have not fully filled my deman
  * @ResponseBody and @RequestBody which are not supported by spring for portlets out of the box.
  * Full support for integration tests with MockMVC.
  * 100% Java Config and no xml-file at all.
- * Custom Thymeleaf src-attribute for easy use in Portlets to get static resources: <img sc:src="images/image.jpg" />
+ * Custom Thymeleaf src-attribute for easy use in Portlets to get static resources: &lt;img sc:src="images/image.jpg" /&gt;
 
 The project consists of 3 Maven dependencies:
 
