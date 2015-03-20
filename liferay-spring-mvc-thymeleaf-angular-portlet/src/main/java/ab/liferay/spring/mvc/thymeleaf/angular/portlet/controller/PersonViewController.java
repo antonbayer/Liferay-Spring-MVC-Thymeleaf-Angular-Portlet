@@ -1,12 +1,11 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.controller.ViewController;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.ViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,8 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceURL;
 import javax.portlet.WindowStateException;
 
-@Controller
-public class PersonViewController extends ViewController {
+@ViewController
+public class PersonViewController {
 
     private static Log _log = LogFactoryUtil.getLog(PersonViewController.class);
 
@@ -73,7 +72,7 @@ public class PersonViewController extends ViewController {
     }
 
     @RenderMapping(params = {"personId"})
-    @RequestMapping
+    @RequestMapping(produces = "text/plain")
     public String render(ModelMap model) {
 
         _log.debug("handle render");

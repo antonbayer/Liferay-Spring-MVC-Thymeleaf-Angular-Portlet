@@ -1,7 +1,7 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.config;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletRequestBodyImpl;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletResponseBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.adapter.PortletRequestBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.adapter.PortletResponseBodyImpl;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.service.PortletService;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

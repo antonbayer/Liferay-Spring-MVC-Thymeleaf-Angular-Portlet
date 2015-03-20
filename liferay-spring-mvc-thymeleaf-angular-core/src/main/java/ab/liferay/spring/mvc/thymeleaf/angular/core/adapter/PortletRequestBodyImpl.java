@@ -1,5 +1,6 @@
-package ab.liferay.spring.mvc.thymeleaf.angular.core.annotation;
+package ab.liferay.spring.mvc.thymeleaf.angular.core.adapter;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.annotation.PortletRequestBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebArgumentResolver;
@@ -16,8 +17,7 @@ public class PortletRequestBodyImpl implements WebArgumentResolver {
 
     public Object resolveArgument(MethodParameter param, NativeWebRequest request) throws Exception {
 
-        if (request.getNativeRequest() instanceof ResourceRequest && param.getParameterAnnotation(PortletRequestBody.class) != null)
-        {
+        if (request.getNativeRequest() instanceof ResourceRequest && param.getParameterAnnotation(PortletRequestBody.class) != null) {
             return JSON_MAPPER.readValue(((ResourceRequest) request.getNativeRequest()).getReader(), param.getParameterType());
         }
         return WebArgumentResolver.UNRESOLVED;

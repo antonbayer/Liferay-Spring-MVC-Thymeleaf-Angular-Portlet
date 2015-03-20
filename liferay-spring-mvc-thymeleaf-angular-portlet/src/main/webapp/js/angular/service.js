@@ -1,22 +1,17 @@
 angular.module('angularApp.services', [])
-    .factory('personService', ['$http', function($http) {
-
-        var api = {};
-
-        api.getPersons = function() {
+    .service('personService', ['$http', function ($http) {
+        this.getPersons = function () {
             return $http({
                 method: 'GET',
                 url: resourceURL
             });
         };
 
-        api.addPerson = function(person) {
+        this.addPerson = function (person) {
             return $http({
                 method: 'POST',
                 url: resourceURL,
                 data: person
             });
         };
-
-        return api;
     }]);
