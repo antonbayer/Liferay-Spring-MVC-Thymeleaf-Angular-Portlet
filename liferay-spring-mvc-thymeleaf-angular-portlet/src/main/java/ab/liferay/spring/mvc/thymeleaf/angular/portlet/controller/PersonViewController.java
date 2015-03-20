@@ -75,7 +75,6 @@ public class PersonViewController {
     }
 
     @RenderMapping(params = {"personId"})
-    @RequestMapping(produces = "text/plain")
     public String render(ModelMap model) {
 
         _log.debug("handle render");
@@ -85,7 +84,6 @@ public class PersonViewController {
     }
 
     @ActionMapping(params = {"personId"})
-    @RequestMapping
     public void action() {
 
         _log.debug("handle action");
