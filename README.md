@@ -8,6 +8,7 @@ After playing around with several tutorials which have not fully filled my deman
  * Full support for integration tests with MockMVC.
  * 100% Java Config and no xml-file at all.
  * Custom Thymeleaf src-attribute for easy use in Portlets to get static resources: &lt;img sc:src="images/image.jpg" /&gt;
+ * Service to render Thymeleaf templates on server into strings to return as json object for multi fragment updates via ajax.
 
 The project consists of 3 Maven dependencies:
 
