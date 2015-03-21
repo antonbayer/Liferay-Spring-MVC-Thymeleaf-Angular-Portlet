@@ -49,4 +49,9 @@ public class RenderServiceImpl implements RenderService {
     public String renderTemplate(String viewName, ModelMap modelMap) {
         return renderTemplate(new ModelAndView(viewName, modelMap));
     }
+
+    @Override
+    public String renderTemplate(String viewName) {
+        return renderTemplate(viewName, null);
+    }
 }

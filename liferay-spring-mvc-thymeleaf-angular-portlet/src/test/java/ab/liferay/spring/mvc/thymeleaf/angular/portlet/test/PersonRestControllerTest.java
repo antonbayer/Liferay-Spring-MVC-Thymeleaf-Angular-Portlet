@@ -23,7 +23,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
@@ -128,7 +126,6 @@ public class PersonRestControllerTest {
         @Bean
         public RenderService RenderService() {
             RenderService mock = Mockito.mock(RenderService.class);
-            when(mock.renderTemplate(any(ModelAndView.class))).thenReturn("test");
             return mock;
         }
 

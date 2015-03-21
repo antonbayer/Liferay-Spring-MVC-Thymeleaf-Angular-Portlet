@@ -13,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,20 +55,18 @@ public class PersonRestController {
     public Map<String, String> html() {
 
         List<Person> persons = personService.getPersons();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> jsonMap = new HashMap<String, String>();
 
         ModelMap modelMap = new ModelMap();
-        ModelAndView modelAndView = new ModelAndView();
         modelMap.put("persons", persons);
-        String s = renderService.renderTemplate("index/index :: persons", modelMap);
-        map.put("persons", s);
+        String html = renderService.renderTemplate("index/index :: persons", modelMap);
+        jsonMap.put("persons", html);
 
         modelMap = new ModelMap();
-        modelAndView = new ModelAndView();
         modelMap.put("count", persons.size());
-        s = renderService.renderTemplate("index/index :: count", modelMap);
-        map.put("count", s);
+        html = renderService.renderTemplate("index/index :: count", modelMap);
+        jsonMap.put("count", html);
 
-        return map;
+        return jsonMap;
     }
 }

@@ -33,7 +33,7 @@
         (First add persons via angular.s)
     </div>
     <div id="count" th:fragment="count">
-        Count: <span th:remmoveTag="true" th:text="${count}"></span>
+        Count: <span th:remove="tag" th:text="${count}"></span>
     </div>
     <table id="persons" th:fragment="persons">
         <tbody>

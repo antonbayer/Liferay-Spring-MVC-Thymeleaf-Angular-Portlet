@@ -20,7 +20,7 @@ public class PersonServiceImpl implements PersonService {
             persons = new ArrayList<Person>();
 
             addPerson(new Person(1, "DemoFirstname1", "DemoFirstname1"));
-            addPerson(new Person(2, "DemoFirstname3", "DemoFirstname2"));
+            addPerson(new Person(2, "DemoFirstname2", "DemoFirstname2"));
             addPerson(new Person(3, "DemoFirstname3", "DemoFirstname3"));
         }
 
