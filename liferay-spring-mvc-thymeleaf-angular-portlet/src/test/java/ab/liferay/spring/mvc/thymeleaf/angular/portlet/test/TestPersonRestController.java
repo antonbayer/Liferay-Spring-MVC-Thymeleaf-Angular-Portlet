@@ -1,6 +1,6 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.RenderService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonRestController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
@@ -15,18 +15,20 @@ import java.util.List;
 public class TestPersonRestController extends PersonRestController {
 
 
-    public TestPersonRestController(PersonService personService, PortletService portletService) {
-        super(personService, portletService);
+    public TestPersonRestController(PersonService personService, RenderService renderService) {
+        super(personService, renderService);
     }
 
     @RequestMapping(value = "/" + PersonRestController.REST_RESOURCE)
     @ResponseBody
+    @Override
     public List<Person> rest() {
         return super.rest();
     }
 
     @RequestMapping(value = "/" + PersonRestController.REST_RESOURCE, method = RequestMethod.POST)
     @ResponseBody
+    @Override
     public void rest(@RequestBody Person person) {
         super.rest(person);
     }

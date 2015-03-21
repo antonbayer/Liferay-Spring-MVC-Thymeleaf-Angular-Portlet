@@ -52,7 +52,7 @@ public class PersonViewControllerTest {
 
     @Autowired
     private PersonService personService;
-    ;
+
     @Autowired
     private PortletService portletService;
 

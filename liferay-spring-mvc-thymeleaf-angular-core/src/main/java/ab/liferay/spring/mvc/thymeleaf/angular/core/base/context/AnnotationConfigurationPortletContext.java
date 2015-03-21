@@ -17,7 +17,7 @@ public class AnnotationConfigurationPortletContext extends AbstractRefreshablePo
         loadConfigBeanDefinitions(beanFactory);
     }
 
-    protected void loadConfigBeanDefinitions(DefaultListableBeanFactory beanFactory) {
+    private void loadConfigBeanDefinitions(DefaultListableBeanFactory beanFactory) {
         for (String configurationClassName : getConfigLocations()) {
             BeanDefinition configBeanDefinition = new GenericBeanDefinition();
             configBeanDefinition.setBeanClassName(configurationClassName);
@@ -25,7 +25,7 @@ public class AnnotationConfigurationPortletContext extends AbstractRefreshablePo
         }
     }
 
-    protected void loadConfigBeanDefinition(BeanDefinition beanDefinition, DefaultListableBeanFactory beanFactory) {
+    private void loadConfigBeanDefinition(BeanDefinition beanDefinition, DefaultListableBeanFactory beanFactory) {
         beanFactory.registerBeanDefinition(beanDefinition.getBeanClassName(), beanDefinition);
     }
 

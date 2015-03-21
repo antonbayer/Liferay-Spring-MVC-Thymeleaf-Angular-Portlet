@@ -2,7 +2,7 @@ package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.ViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.util.StaticUtil;
+import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -13,11 +13,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceURL;
 import javax.portlet.WindowStateException;
+import java.util.List;
 
 @ViewController
 public class PersonViewController {
@@ -41,7 +43,9 @@ public class PersonViewController {
 
         RenderResponse response = portletService.getRenderResponse();
 
-        model.addAttribute("persons", personService.getPersons());
+        List<Person> persons = personService.getPersons();
+        model.addAttribute("persons", persons);
+        model.addAttribute("count", persons.size());
 
         ResourceURL resourceURL = response.createResourceURL();
         resourceURL.setResourceID(PersonRestController.REST_RESOURCE);
@@ -56,22 +60,24 @@ public class PersonViewController {
         model.addAttribute("actionUrl", actionUrl.toString());
 
         PortletURL ajaxUrl = response.createRenderURL();
-        ajaxUrl.setParameter("personsFragment", "");
+        ajaxUrl.setParameter("persons", "");
         ajaxUrl.setWindowState(portletService.getWindowStateExclusive());
         model.addAttribute("ajaxUrl", ajaxUrl.toString());
 
-        model.addAttribute("fileUrl", StaticUtil.getStaticContentUrl(portletService.getRenderResponse(), "image.jpg"));
+        ResourceURL jsonHtmlUrl = response.createResourceURL();
+        jsonHtmlUrl.setResourceID(PersonRestController.HTML_JSON_RESOURCE);
+        model.addAttribute("jsonHtmlUrl", jsonHtmlUrl.toString());
 
         return "index/index";
     }
 
-    @RenderMapping(params = {"personsFragment"})
-    public String personsFragment(Model model) {
+    @RenderMapping(params = {"persons"})
+    public ModelAndView persons(Model model) {
 
-        _log.debug("handle personsFragment");
+        _log.debug("handle persons");
 
         model.addAttribute("persons", personService.getPersons());
-        return "/index/index :: personsFragment";
+        return new ModelAndView("index/index :: #persons", model.asMap());
     }
 
     @RenderMapping(params = {"personId"})
@@ -79,7 +85,7 @@ public class PersonViewController {
 
         _log.debug("handle render");
 
-        long personId = ParamUtil.getLong(portletService.getRenderRequest(), "personId");
+        long personId = ParamUtil.getLong(portletService.getPortletRequest(), "personId");
         return "index/render";
     }
 
@@ -88,7 +94,7 @@ public class PersonViewController {
 
         _log.debug("handle action");
 
-        long personId = ParamUtil.getLong(portletService.getActionRequest(), "personId");
+        long personId = ParamUtil.getLong(portletService.getPortletRequest(), "personId");
         portletService.getActionResponse().setRenderParameter("personId", String.valueOf(personId));
     }
 }

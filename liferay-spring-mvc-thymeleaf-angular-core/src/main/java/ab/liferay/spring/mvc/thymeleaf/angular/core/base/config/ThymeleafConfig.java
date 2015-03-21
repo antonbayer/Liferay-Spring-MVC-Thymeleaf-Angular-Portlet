@@ -11,9 +11,9 @@ import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.standard.processor.attr.AbstractStandardSingleAttributeModifierAttrProcessor;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,8 +31,8 @@ public class ThymeleafConfig {
     }
 
     @Bean
-    public ServletContextTemplateResolver templateResolver() {
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setPrefix("/WEB-INF/thymeleaf/templates/");
         templateResolver.setSuffix(".xhtml");

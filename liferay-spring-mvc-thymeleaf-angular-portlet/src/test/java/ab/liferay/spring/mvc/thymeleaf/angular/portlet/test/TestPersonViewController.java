@@ -11,22 +11,24 @@ import javax.portlet.WindowStateException;
 @RequestMapping("/test")
 public class TestPersonViewController extends PersonViewController {
 
-
     public TestPersonViewController(PersonService personService, PortletService portletService) {
         super(personService, portletService);
     }
 
     @RequestMapping(value = "/view")
+    @Override
     public String view(ModelMap model) throws WindowStateException {
         return super.view(model);
     }
 
     @RequestMapping(value = "/render")
+    @Override
     public String render(ModelMap model) {
         return super.render(model);
     }
 
     @RequestMapping(value = "/action")
+    @Override
     public void action() {
         super.action();
     }

@@ -7,6 +7,8 @@ public interface PortletService {
 
     PortletConfig getPortletConfig();
 
+    PortletRequest getPortletRequest();
+
     RenderRequest getRenderRequest();
 
     ResourceRequest getResourceRequest();
@@ -14,6 +16,8 @@ public interface PortletService {
     ActionRequest getActionRequest();
 
     EventRequest getEventRequest();
+
+    PortletResponse getPortletResponse();
 
     RenderResponse getRenderResponse();
 

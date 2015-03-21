@@ -1,6 +1,7 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.RenderService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonRestController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
@@ -22,6 +23,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
@@ -123,8 +126,15 @@ public class PersonRestControllerTest {
         }
 
         @Bean
-        public TestPersonRestController testPersonRestController(PersonService personService, PortletService portletService) {
-            return new TestPersonRestController(personService, portletService);
+        public RenderService RenderService() {
+            RenderService mock = Mockito.mock(RenderService.class);
+            when(mock.renderTemplate(any(ModelAndView.class))).thenReturn("test");
+            return mock;
+        }
+
+        @Bean
+        public TestPersonRestController testPersonRestController(PersonService personService, RenderService renderService) {
+            return new TestPersonRestController(personService, renderService);
         }
     }
 }

@@ -15,6 +15,7 @@ public class PortletRequestBodyImpl implements WebArgumentResolver {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
+    @Override
     public Object resolveArgument(MethodParameter param, NativeWebRequest request) throws Exception {
 
         if (request.getNativeRequest() instanceof ResourceRequest && param.getParameterAnnotation(PortletRequestBody.class) != null) {

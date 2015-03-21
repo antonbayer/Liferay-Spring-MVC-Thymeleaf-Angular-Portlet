@@ -12,7 +12,8 @@ import java.util.Locale;
 @Service
 public class PortletServiceImpl implements PortletService {
 
-    private PortletRequest getPortletRequest() {
+    @Override
+    public PortletRequest getPortletRequest() {
         Object o = RequestContextHolder.currentRequestAttributes().getAttribute(JavaConstants.JAVAX_PORTLET_REQUEST, RequestAttributes.SCOPE_REQUEST);
         if (o instanceof PortletRequest) {
             return ((PortletRequest) o);
@@ -65,7 +66,8 @@ public class PortletServiceImpl implements PortletService {
         throw new RuntimeException("no EventRequest.");
     }
 
-    private PortletResponse getPortletResponse() {
+    @Override
+    public PortletResponse getPortletResponse() {
         Object o = getPortletRequest().getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
         if (o instanceof PortletResponse) {
             return ((PortletResponse) o);
@@ -82,6 +84,7 @@ public class PortletServiceImpl implements PortletService {
         throw new RuntimeException("no RenderResponse.");
     }
 
+    @Override
     public ResourceResponse getResourceResponse() {
         PortletResponse o = getPortletResponse();
         if (o instanceof ResourceResponse) {
@@ -90,6 +93,7 @@ public class PortletServiceImpl implements PortletService {
         throw new RuntimeException("no ResourceResponse.");
     }
 
+    @Override
     public ActionResponse getActionResponse() {
         PortletResponse o = getPortletResponse();
         if (o instanceof ActionResponse) {
@@ -98,6 +102,7 @@ public class PortletServiceImpl implements PortletService {
         throw new RuntimeException("no ActionResponse.");
     }
 
+    @Override
     public EventResponse getEventResponse() {
         PortletResponse o = getPortletResponse();
         if (o instanceof EventResponse) {
@@ -106,30 +111,37 @@ public class PortletServiceImpl implements PortletService {
         throw new RuntimeException("no EventResponse.");
     }
 
+    @Override
     public PortletSession getPortletSession() {
         return getPortletRequest().getPortletSession();
     }
 
+    @Override
     public Locale getLocale() {
         return getPortletRequest().getLocale();
     }
 
+    @Override
     public WindowState getWindowStateExclusive() {
         return LiferayWindowState.EXCLUSIVE;
     }
 
+    @Override
     public WindowState getWindowStatePopup() {
         return LiferayWindowState.POP_UP;
     }
 
+    @Override
     public WindowState getWindowStateMaximized() {
         return LiferayWindowState.MAXIMIZED;
     }
 
+    @Override
     public WindowState getWindowStateMinimized() {
         return LiferayWindowState.MINIMIZED;
     }
 
+    @Override
     public WindowState getWindowStateNormal() {
         return LiferayWindowState.NORMAL;
     }
