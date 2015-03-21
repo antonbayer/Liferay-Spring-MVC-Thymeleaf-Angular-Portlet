@@ -6,6 +6,7 @@ import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.util.StaticUtil;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -64,7 +65,6 @@ public class PersonViewController {
         return "index/index";
     }
 
-
     @RenderMapping(params = {"personsFragment"})
     public String personsFragment(Model model) {
 
@@ -79,7 +79,7 @@ public class PersonViewController {
 
         _log.debug("handle render");
 
-        long personId = Long.valueOf(portletService.getRenderRequest().getParameter("personId"));
+        long personId = ParamUtil.getLong(portletService.getRenderRequest(), "personId");
         return "index/render";
     }
 
@@ -88,7 +88,7 @@ public class PersonViewController {
 
         _log.debug("handle action");
 
-        long personId = Long.valueOf(portletService.getActionRequest().getParameter("personId"));
+        long personId = ParamUtil.getLong(portletService.getActionRequest(), "personId");
         portletService.getActionResponse().setRenderParameter("personId", String.valueOf(personId));
     }
 }
