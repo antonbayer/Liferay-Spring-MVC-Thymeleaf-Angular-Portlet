@@ -54,8 +54,8 @@ public class PersonRestController {
     @PortletResponseBody
     public Map<String, String> html() {
 
-        List<Person> persons = personService.getPersons();
         Map<String, String> jsonMap = new HashMap<String, String>();
+        List<Person> persons = personService.getPersons();
 
         ModelMap modelMap = new ModelMap();
         modelMap.put("persons", persons);

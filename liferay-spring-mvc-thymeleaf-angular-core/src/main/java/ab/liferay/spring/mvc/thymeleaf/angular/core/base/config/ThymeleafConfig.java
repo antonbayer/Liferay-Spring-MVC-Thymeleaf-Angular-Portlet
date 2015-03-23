@@ -1,19 +1,15 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.config;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialect;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialectImpl;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.util.StaticUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.dom.Element;
-import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.standard.processor.attr.AbstractStandardSingleAttributeModifierAttrProcessor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,9 +20,9 @@ public class ThymeleafConfig {
     private final String SYSTEM_PROPERTY_THYMELEAF_CACHEABLE ="thymeleaf.cacheable";
 
     @Bean
-    public ViewResolver viewResolver(final PortletService portletService) {
+    public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine(portletService));
+        viewResolver.setTemplateEngine(templateEngine);
         return viewResolver;
     }
 
@@ -42,61 +38,20 @@ public class ThymeleafConfig {
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(final PortletService portletService) {
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver, StaticContentDialect staticContentDialect) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setTemplateResolver(templateResolver);
 
         Set<IDialect> dialects = new HashSet<IDialect>();
-        dialects.add(staticContentDialect(portletService));
+        dialects.add(staticContentDialect);
         templateEngine.setAdditionalDialects(dialects);
 
         return templateEngine;
     }
 
     @Bean
-    public AbstractDialect staticContentDialect(final PortletService portletService) {
-        final String ATTR_NAME = "src";
-        final String TAG_NAME = "sc";
-
-        return new AbstractDialect() {
-            @Override
-            public String getPrefix() {
-                return TAG_NAME;
-            }
-
-            @Override
-            public Set<IProcessor> getProcessors() {
-                final Set<IProcessor> processors = new HashSet<IProcessor>();
-                processors.add(new AbstractStandardSingleAttributeModifierAttrProcessor(ATTR_NAME) {
-                    @Override
-                    public int getPrecedence() {
-                        return 0;
-                    }
-
-                    @Override
-                    protected ModificationType getModificationType(Arguments arguments, Element element, String attributeName, String newAttributeName) {
-                        return ModificationType.SUBSTITUTION;
-                    }
-
-                    @Override
-                    protected boolean removeAttributeIfEmpty(Arguments arguments, Element element, String attributeName, String newAttributeName) {
-                        return false;
-                    }
-
-                    @Override
-                    protected String getTargetAttributeName(Arguments arguments, Element element, String attributeName) {
-                        return ATTR_NAME;
-                    }
-
-                    @Override
-                    protected String getTargetAttributeValue(
-                            final Arguments arguments, final Element element, final String attributeName) {
-                        return StaticUtil.getStaticContentUrl(portletService.getRenderResponse(), element.getAttributeValue(attributeName));
-                    }
-                });
-                return processors;
-            }
-        };
+    public StaticContentDialect staticContentDialect(final PortletService portletService) {
+        return new StaticContentDialectImpl(portletService);
     }
 
     private boolean getThymeleafCacheable() {
