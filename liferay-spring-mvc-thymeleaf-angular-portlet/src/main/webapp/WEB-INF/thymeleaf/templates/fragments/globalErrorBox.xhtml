@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+
+<div th:object="${globalErrorBox}" th:remove="tag">
+    <ul th:if="${#fields.hasErrors('global')}">
+        <li th:each="err : ${#fields.errors('global')}" th:text="${err}"></li>
+    </ul>
+</div>
+
+</body>
+</html>

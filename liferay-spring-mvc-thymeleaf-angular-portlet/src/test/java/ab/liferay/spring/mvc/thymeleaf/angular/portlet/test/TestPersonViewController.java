@@ -2,8 +2,10 @@ package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonViewController;
+import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.GlobalErrorBox;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.portlet.WindowStateException;
@@ -17,8 +19,8 @@ public class TestPersonViewController extends PersonViewController {
 
     @RequestMapping(value = "/view")
     @Override
-    public String view(ModelMap model) throws WindowStateException {
-        return super.view(model);
+    public String view(GlobalErrorBox globalErrorBox, Errors globalErrors, ModelMap model) throws WindowStateException {
+        return super.view(globalErrorBox, globalErrors, model);
     }
 
     @RequestMapping(value = "/render")

@@ -2,6 +2,7 @@ package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.ViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
+import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.GlobalErrorBox;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
@@ -10,6 +11,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
@@ -35,11 +38,19 @@ public class PersonViewController {
         this.portletService = portletService;
     }
 
+    @ModelAttribute("globalErrorBox")
+    public GlobalErrorBox globalErrorBox() {
+        return new GlobalErrorBox();
+    }
+
     @RenderMapping
     @RequestMapping
-    public String view(ModelMap model) throws WindowStateException {
+    public String view(GlobalErrorBox globalErrorBox, Errors globalErrors, ModelMap model) throws WindowStateException {
 
         _log.debug("handle view");
+
+        globalErrors.reject("any");
+        globalErrors.reject("any");
 
         RenderResponse response = portletService.getRenderResponse();
 
