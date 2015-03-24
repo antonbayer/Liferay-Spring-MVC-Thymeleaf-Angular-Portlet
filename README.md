@@ -49,7 +49,6 @@ Notes:
  * The portlet is tested with Java 1.7 and liferay-portal-6.2-ee-sp5.
  * Developed with IntellijIDEA Ultimate 14.
  * All used Maven dependencies are in the latest version (03/17/15).
- * The first time you add the portlet to a page you get a ADD_TO_PAGE NoSuchResourceActionException. All offered solutions in the web were not useful at all. Any idea?
  
 ### Improvements?
 
