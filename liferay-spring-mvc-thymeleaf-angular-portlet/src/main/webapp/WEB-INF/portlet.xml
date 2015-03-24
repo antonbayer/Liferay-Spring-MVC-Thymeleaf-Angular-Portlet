@@ -5,8 +5,8 @@
              version="2.0">
 
 	<portlet>
-		<portlet-name>liferay-spring-mvc-thymeleaf-angular-portlet</portlet-name>
-		<display-name>Liferay Spring MVC Thymeleaf Angular Portlet</display-name>
+		<portlet-name>demo-portlet</portlet-name>
+		<display-name>Demo Portlet</display-name>
 		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
 
 
@@ -30,7 +30,7 @@
         <resource-bundle>content/language</resource-bundle>
 
         <portlet-info>
-			<title>Liferay Spring MVC Thymeleaf Angular Portlet</title>
+			<title>Demo Portlet</title>
 			<short-title>Liferay Spring MVC Thymeleaf Angular Portlet</short-title>
 			<keywords>Liferay Spring MVC Thymeleaf Angular Portlet</keywords>
 		</portlet-info>

@@ -4,7 +4,7 @@
 
 <resource-action-mapping>
     <portlet-resource>
-        <portlet-name>liferay-spring-mvc-thymeleaf-angular-portlet</portlet-name>
+        <portlet-name>demo-portlet</portlet-name>
         <permissions>
             <supports>
                 <action-key>ADD_TO_PAGE</action-key>

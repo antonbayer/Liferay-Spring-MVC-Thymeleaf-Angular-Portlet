@@ -6,7 +6,7 @@
 
     <portlet>
 
-        <portlet-name>liferay-spring-mvc-thymeleaf-angular-portlet</portlet-name>
+        <portlet-name>demo-portlet</portlet-name>
         <instanceable>false</instanceable>
 
         <requires-namespaced-parameters>false</requires-namespaced-parameters>

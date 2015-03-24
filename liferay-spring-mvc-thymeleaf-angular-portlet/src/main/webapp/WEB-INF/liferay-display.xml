@@ -2,7 +2,7 @@
 <!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.1.0//EN" "http://www.liferay.com/dtd/liferay-display_6_1_0.dtd">
 
 <display>
-	<category name="ab.liferay.spring.mvc.thymeleaf.angular">
-		<portlet id="ab.liferay.spring.mvc.thymeleaf.angular-portlet" />
+	<category name="Liferay Spring MVC Thymeleaf Angular Portlet">
+		<portlet id="demo-portlet" />
 	</category>
 </display>
