@@ -2,6 +2,7 @@ package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.config.CoreConfig;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.config.ThymeleafConfig;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.util.Integration;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
@@ -125,6 +126,12 @@ public class PersonViewControllerTest {
         }
 
         @Bean
+        public MessageService messageService() {
+            MessageService mock = Mockito.mock(MessageService.class);
+            return mock;
+        }
+
+        @Bean
         public MessageSource messageSource(final PortletService portletService) {
 
             ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -134,8 +141,8 @@ public class PersonViewControllerTest {
         }
 
         @Bean
-        public TestWrapperPersonViewController testPersonViewController(PersonService personService, PortletService portletService) {
-            return new TestWrapperPersonViewController(personService, portletService);
+        public TestWrapperPersonViewController testPersonViewController(PersonService personService, PortletService portletService, MessageService messageService) {
+            return new TestWrapperPersonViewController(personService, portletService, messageService);
         }
     }
 }

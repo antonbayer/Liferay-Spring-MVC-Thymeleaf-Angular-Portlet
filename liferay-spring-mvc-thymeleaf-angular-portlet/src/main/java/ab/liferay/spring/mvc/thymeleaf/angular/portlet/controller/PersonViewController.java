@@ -1,6 +1,8 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.ViewController;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageType;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.model.Person;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
@@ -28,11 +30,13 @@ public class PersonViewController {
 
     private final PersonService personService;
     private final PortletService portletService;
+    private final MessageService messageService;
 
     @Autowired
-    public PersonViewController(PersonService personService, PortletService portletService) {
+    public PersonViewController(PersonService personService, PortletService portletService, MessageService messageService) {
         this.personService = personService;
         this.portletService = portletService;
+        this.messageService = messageService;
     }
 
     @RenderMapping
@@ -67,6 +71,12 @@ public class PersonViewController {
         ResourceURL jsonHtmlUrl = response.createResourceURL();
         jsonHtmlUrl.setResourceID(PersonRestController.HTML_JSON_RESOURCE);
         model.addAttribute("jsonHtmlUrl", jsonHtmlUrl.toString());
+
+        messageService.addMessage("only.param");
+        messageService.addMessage("arg.param", new Object[]{"Test"});
+        messageService.addMessage("info.param", MessageType.INFO);
+        messageService.addMessage("error.param", MessageType.ERROR);
+        messageService.addMessage("error.special.param", MessageType.ERROR, "special");
 
         return "index/index";
     }

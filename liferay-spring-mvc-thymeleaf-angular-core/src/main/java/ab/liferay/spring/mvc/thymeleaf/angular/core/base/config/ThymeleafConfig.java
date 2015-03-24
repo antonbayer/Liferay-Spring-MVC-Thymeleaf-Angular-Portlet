@@ -1,7 +1,10 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.config;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.MessageListDialect;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.MessageListDialectImpl;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialect;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialectImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,11 +41,12 @@ public class ThymeleafConfig {
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver, StaticContentDialect staticContentDialect) {
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver, StaticContentDialect staticContentDialect, MessageListDialect messageListDialect) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
         Set<IDialect> dialects = new HashSet<IDialect>();
+        dialects.add(messageListDialect);
         dialects.add(staticContentDialect);
         templateEngine.setAdditionalDialects(dialects);
 
@@ -52,6 +56,11 @@ public class ThymeleafConfig {
     @Bean
     public StaticContentDialect staticContentDialect(final PortletService portletService) {
         return new StaticContentDialectImpl(portletService);
+    }
+
+    @Bean
+    public MessageListDialect messageListDialect(final MessageService messageService) {
+        return new MessageListDialectImpl(messageService);
     }
 
     private boolean getThymeleafCacheable() {

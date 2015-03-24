@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:ab="https://github.com/antonbayer/Liferay-Spring-MVC-Thymeleaf-Angular-Portlet"
+      xmlns:sc="https://github.com/antonbayer/Liferay-Spring-MVC-Thymeleaf-Angular-Portlet"
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <script type="text/javascript" th:inline="javascript">
@@ -16,6 +18,10 @@
 
 <div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
 <div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
+
+<hr/>
+
+<ab:messages group="global" type="error"/>
 
 <hr/>
 

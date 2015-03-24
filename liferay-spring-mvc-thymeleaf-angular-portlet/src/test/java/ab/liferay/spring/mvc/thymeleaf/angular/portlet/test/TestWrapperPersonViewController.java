@@ -1,5 +1,6 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.portlet.test;
 
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.controller.PersonViewController;
 import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
@@ -11,8 +12,8 @@ import javax.portlet.WindowStateException;
 @RequestMapping("/test")
 public class TestWrapperPersonViewController extends PersonViewController {
 
-    public TestWrapperPersonViewController(PersonService personService, PortletService portletService) {
-        super(personService, portletService);
+    public TestWrapperPersonViewController(PersonService personService, PortletService portletService, MessageService messageService) {
+        super(personService, portletService, messageService);
     }
 
     @RequestMapping(value = "/view")
