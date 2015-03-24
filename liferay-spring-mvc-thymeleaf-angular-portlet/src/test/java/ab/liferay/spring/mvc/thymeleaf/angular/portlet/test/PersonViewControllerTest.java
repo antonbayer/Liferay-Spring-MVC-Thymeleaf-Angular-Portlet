@@ -134,8 +134,8 @@ public class PersonViewControllerTest {
         }
 
         @Bean
-        public TestPersonViewController testPersonViewController(PersonService personService, PortletService portletService) {
-            return new TestPersonViewController(personService, portletService);
+        public TestWrapperPersonViewController testPersonViewController(PersonService personService, PortletService portletService) {
+            return new TestWrapperPersonViewController(personService, portletService);
         }
     }
 }

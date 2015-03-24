@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @RequestMapping("/test")
-public class TestPersonRestController extends PersonRestController {
+public class TestWrapperPersonRestController extends PersonRestController {
 
 
-    public TestPersonRestController(PersonService personService, RenderService renderService) {
+    public TestWrapperPersonRestController(PersonService personService, RenderService renderService) {
         super(personService, renderService);
     }
 

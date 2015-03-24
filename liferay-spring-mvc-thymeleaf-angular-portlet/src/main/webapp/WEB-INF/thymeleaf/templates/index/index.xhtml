@@ -9,16 +9,13 @@
 <body>
 
 <h2 th:text="#{welcome}"></h2>
+
 <h3 th:text="#{description}"></h3>
 
 <div><img sc:src="images/image.jpg"/></div>
 
 <div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
 <div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
-
-<hr/>
-
-<div th:replace="fragments/globalErrorBox" />
 
 <hr/>
 
@@ -56,10 +53,10 @@
         <table>
             <tbody>
             <tr ng-repeat="person in personCtrl.persons">
-                    <td>{{person.id}}</td>
-                    <td>{{person.firstname}}</td>
-                    <td>{{person.lastname}}</td>
-                </tr>
+                <td>{{person.id}}</td>
+                <td>{{person.firstname}}</td>
+                <td>{{person.lastname}}</td>
+            </tr>
             </tbody>
         </table>
     </div>

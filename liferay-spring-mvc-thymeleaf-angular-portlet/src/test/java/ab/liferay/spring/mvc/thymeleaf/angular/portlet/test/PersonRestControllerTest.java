@@ -130,8 +130,8 @@ public class PersonRestControllerTest {
         }
 
         @Bean
-        public TestPersonRestController testPersonRestController(PersonService personService, RenderService renderService) {
-            return new TestPersonRestController(personService, renderService);
+        public TestWrapperPersonRestController testPersonRestController(PersonService personService, RenderService renderService) {
+            return new TestWrapperPersonRestController(personService, renderService);
         }
     }
 }
