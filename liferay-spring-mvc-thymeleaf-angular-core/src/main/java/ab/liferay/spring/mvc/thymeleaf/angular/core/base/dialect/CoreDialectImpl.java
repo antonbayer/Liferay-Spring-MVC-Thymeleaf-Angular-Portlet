@@ -110,7 +110,7 @@ public class CoreDialectImpl extends AbstractDialect implements CoreDialect {
 
         @Override
         protected String getTargetAttributeName(Arguments arguments, Element element, String attributeName) {
-            return PROCESSOR_MESSAGES_NAME;
+            return PROCESSOR_SRC_NAME;
         }
 
         @Override
