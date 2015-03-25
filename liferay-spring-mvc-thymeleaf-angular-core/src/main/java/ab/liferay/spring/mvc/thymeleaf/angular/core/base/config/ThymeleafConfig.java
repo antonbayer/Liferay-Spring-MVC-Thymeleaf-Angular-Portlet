@@ -1,9 +1,7 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.config;
 
-import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.MessageListDialect;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.MessageListDialectImpl;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialect;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.StaticContentDialectImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.CoreDialect;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.dialect.CoreDialectImpl;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import org.springframework.context.annotation.Bean;
@@ -41,26 +39,20 @@ public class ThymeleafConfig {
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver, StaticContentDialect staticContentDialect, MessageListDialect messageListDialect) {
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver, CoreDialect coreDialect) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
         Set<IDialect> dialects = new HashSet<IDialect>();
-        dialects.add(messageListDialect);
-        dialects.add(staticContentDialect);
+        dialects.add(coreDialect);
         templateEngine.setAdditionalDialects(dialects);
 
         return templateEngine;
     }
 
     @Bean
-    public StaticContentDialect staticContentDialect(final PortletService portletService) {
-        return new StaticContentDialectImpl(portletService);
-    }
-
-    @Bean
-    public MessageListDialect messageListDialect(final MessageService messageService) {
-        return new MessageListDialectImpl(messageService);
+    public CoreDialect messageListDialect(final PortletService portletService, final MessageService messageService) {
+        return new CoreDialectImpl(portletService, messageService);
     }
 
     private boolean getThymeleafCacheable() {

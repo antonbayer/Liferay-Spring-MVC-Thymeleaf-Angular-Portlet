@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:ab="https://github.com/antonbayer/Liferay-Spring-MVC-Thymeleaf-Angular-Portlet"
-      xmlns:sc="https://github.com/antonbayer/Liferay-Spring-MVC-Thymeleaf-Angular-Portlet"
+      xmlns:core="http://core"
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <script type="text/javascript" th:inline="javascript">
@@ -14,14 +13,14 @@
 
 <h3 th:text="#{description}"></h3>
 
-<div><img sc:src="images/image.jpg"/></div>
+<div><img core:src="images/image.jpg"/></div>
 
 <div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
 <div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
 
 <hr/>
 
-<ab:messages group="global" type="error"/>
+<core:messages group="global" type="info"/>
 
 <hr/>
 
