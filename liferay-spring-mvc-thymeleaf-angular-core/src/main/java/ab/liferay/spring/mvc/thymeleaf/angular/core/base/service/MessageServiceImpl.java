@@ -3,7 +3,6 @@ package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageList;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageStore;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageType;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -23,17 +22,17 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void addMessage(String message) {
-        addMessage(message, null, Constants.MESSAGE_DEFAULT_MESSAGE_TYPE, Constants.MESSAGE_DEFAULT_GROUP);
+        addMessage(message, null, MESSAGE_DEFAULT_MESSAGE_TYPE, MESSAGE_DEFAULT_GROUP);
     }
 
     @Override
     public void addMessage(String message, String group) {
-        addMessage(message, null, Constants.MESSAGE_DEFAULT_MESSAGE_TYPE, group);
+        addMessage(message, null, MESSAGE_DEFAULT_MESSAGE_TYPE, group);
     }
 
     @Override
     public void addMessage(String message, MessageType messageType) {
-        addMessage(message, null, messageType, Constants.MESSAGE_DEFAULT_GROUP);
+        addMessage(message, null, messageType, MESSAGE_DEFAULT_GROUP);
     }
 
     @Override
@@ -43,17 +42,17 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void addMessage(String message, Object[] arg) {
-        addMessage(message, arg, Constants.MESSAGE_DEFAULT_MESSAGE_TYPE, Constants.MESSAGE_DEFAULT_GROUP);
+        addMessage(message, arg, MESSAGE_DEFAULT_MESSAGE_TYPE, MESSAGE_DEFAULT_GROUP);
     }
 
     @Override
     public void addMessage(String message, Object[] arg, String group) {
-        addMessage(message, arg, Constants.MESSAGE_DEFAULT_MESSAGE_TYPE, group);
+        addMessage(message, arg, MESSAGE_DEFAULT_MESSAGE_TYPE, group);
     }
 
     @Override
     public void addMessage(String message, Object[] arg, MessageType messageType) {
-        addMessage(message, arg, messageType, Constants.MESSAGE_DEFAULT_GROUP);
+        addMessage(message, arg, messageType, MESSAGE_DEFAULT_GROUP);
     }
 
     @Override

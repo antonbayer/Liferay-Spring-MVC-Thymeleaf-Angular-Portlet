@@ -4,8 +4,6 @@ import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageList;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageType;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.MessageService;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.Constants;
-import ab.liferay.spring.mvc.thymeleaf.angular.core.portlet.util.StaticUtil;
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.dom.Element;
@@ -56,11 +54,11 @@ public class CoreDialectImpl extends AbstractDialect implements CoreDialect {
 
             String group = element.getAttributeValue("group");
             if (group == null) {
-                group = Constants.MESSAGE_DEFAULT_GROUP;
+                group = MessageService.MESSAGE_DEFAULT_GROUP;
             }
             String type = element.getAttributeValue("type");
             if (type == null) {
-                type = Constants.MESSAGE_DEFAULT_MESSAGE_TYPE.getName();
+                type = MessageService.MESSAGE_DEFAULT_MESSAGE_TYPE.getName();
             }
             MessageType messageType = MessageType.getMessageTypeByName(type);
 
@@ -116,7 +114,7 @@ public class CoreDialectImpl extends AbstractDialect implements CoreDialect {
         @Override
         protected String getTargetAttributeValue(
                 final Arguments arguments, final Element element, final String attributeName) {
-            return StaticUtil.getStaticContentUrl(portletService.getRenderResponse(), element.getAttributeValue(attributeName));
+            return portletService.getStaticContentUrl(element.getAttributeValue(attributeName));
         }
     }
 }

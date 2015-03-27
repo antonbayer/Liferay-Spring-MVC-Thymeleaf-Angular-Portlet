@@ -5,6 +5,8 @@ import java.util.Locale;
 
 public interface PortletService {
 
+    String STATIC_CONTENT_RESOURCE_URL = "/static/";
+
     PortletConfig getPortletConfig();
 
     PortletRequest getPortletRequest();
@@ -40,4 +42,6 @@ public interface PortletService {
     WindowState getWindowStateMinimized();
 
     WindowState getWindowStateNormal();
+
+    String getStaticContentUrl(String path);
 }

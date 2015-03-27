@@ -40,6 +40,7 @@ import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -109,6 +110,7 @@ public class PersonViewControllerTest {
     @Configuration
     public static class Config {
 
+        private static final java.lang.String STATIC_URL = "/test/img.png";
         public static Locale LOCALE = Locale.GERMAN;
 
         @Bean
@@ -121,6 +123,7 @@ public class PersonViewControllerTest {
         public PortletService portletService() {
             PortletService mock = Mockito.mock(PortletService.class);
             when(mock.getRenderResponse()).thenReturn(new MockRenderResponse());
+            when(mock.getStaticContentUrl(any(String.class))).thenReturn(STATIC_URL);
             when(mock.getLocale()).thenReturn(LOCALE);
             return mock;
         }

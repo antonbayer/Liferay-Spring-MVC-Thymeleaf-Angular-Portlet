@@ -2,11 +2,13 @@ package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.util.PortalUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.portlet.*;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Service
@@ -144,5 +146,12 @@ public class PortletServiceImpl implements PortletService {
     @Override
     public WindowState getWindowStateNormal() {
         return LiferayWindowState.NORMAL;
+    }
+
+    @Override
+    public String getStaticContentUrl(String path) {
+        PortletRequest portletRequest = getPortletRequest();
+        HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+        return PortalUtil.getStaticResourceURL(httpServletRequest, portletRequest.getContextPath() + STATIC_CONTENT_RESOURCE_URL + path);
     }
 }

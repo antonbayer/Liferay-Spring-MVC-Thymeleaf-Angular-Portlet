@@ -5,6 +5,9 @@ import ab.liferay.spring.mvc.thymeleaf.angular.core.base.model.MessageType;
 
 public interface MessageService {
 
+    String MESSAGE_DEFAULT_GROUP = "global";
+    MessageType MESSAGE_DEFAULT_MESSAGE_TYPE = MessageType.ERROR;
+
     void addMessage(String message);
 
     void addMessage(String message, String group);
