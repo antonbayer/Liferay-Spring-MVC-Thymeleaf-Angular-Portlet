@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.AbstractMessageSource;
+import org.springframework.web.portlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 import javax.portlet.PortletConfig;
@@ -23,6 +24,14 @@ import java.util.ResourceBundle;
 public class CoreConfig {
 
     public static final String MISSING_PROPERTY_INDICATOR = "??##**!!__";
+    private static final String ERROR_VIEW = "error/error";
+
+    @Bean
+    public SimpleMappingExceptionResolver mappingExceptionResolver() {
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+        simpleMappingExceptionResolver.setDefaultErrorView(ERROR_VIEW);
+        return simpleMappingExceptionResolver;
+    }
 
     @Bean
     public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
