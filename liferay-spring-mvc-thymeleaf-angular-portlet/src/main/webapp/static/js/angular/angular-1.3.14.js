@@ -21164,7 +21164,7 @@
      *     </ul>
      *    </div>
      *   </file>
-     *   <file name="app.js">
+     *   <file name="app-bootstrap.js">
      *    angular.module('controllerAsExample', [])
      *      .controller('SettingsController1', SettingsController1);
      *
@@ -21247,7 +21247,7 @@
      *    </ul>
      *   </div>
      *  </file>
-     *  <file name="app.js">
+     *  <file name="app-bootstrap.js">
      *   angular.module('controllerExample', [])
      *     .controller('SettingsController2', ['$scope', SettingsController2]);
      *
@@ -22481,7 +22481,7 @@
      * ### Example with Validation
      *
      * <example name="ngList-directive" module="listExample">
-     *   <file name="app.js">
+     *   <file name="app-bootstrap.js">
      *      angular.module('listExample', [])
      *        .controller('ExampleController', ['$scope', function($scope) {
  *          $scope.names = ['morpheus', 'neo', 'trinity'];
@@ -23035,7 +23035,7 @@
              * input field will be updated with the new model value and any pending operations are cancelled.
              *
              * <example name="ng-model-cancel-update" module="cancel-update-example">
-             *   <file name="app.js">
+             *   <file name="app-bootstrap.js">
              *     angular.module('cancel-update-example', [])
              *
              *     .controller('CancelUpdateController', ['$scope', function($scope) {
@@ -23567,7 +23567,7 @@
      <pre>user.name = <span ng-bind="user.name()"></span></pre>
      </div>
      </file>
-     <file name="app.js">
+     <file name="app-bootstrap.js">
      angular.module('getterSetterExample', [])
      .controller('ExampleController', ['$scope', function($scope) {
            var _name = 'Brian';
@@ -23704,7 +23704,7 @@
      <pre>user.name = <span ng-bind="user.name"></span></pre>
      </div>
      </file>
-     <file name="app.js">
+     <file name="app-bootstrap.js">
      angular.module('optionsExample', [])
      .controller('ExampleController', ['$scope', function($scope) {
           $scope.user = { name: 'say', data: '' };
@@ -23756,7 +23756,7 @@
      <pre>user.name = <span ng-bind="user.name"></span></pre>
      </div>
      </file>
-     <file name="app.js">
+     <file name="app-bootstrap.js">
      angular.module('optionsExample', [])
      .controller('ExampleController', ['$scope', function($scope) {
           $scope.user = { name: 'say' };
@@ -23778,7 +23778,7 @@
      <pre>user.name = <span ng-bind="user.name()"></span></pre>
      </div>
      </file>
-     <file name="app.js">
+     <file name="app-bootstrap.js">
      angular.module('getterSetterExample', [])
      .controller('ExampleController', ['$scope', function($scope) {
           var _name = 'Brian';

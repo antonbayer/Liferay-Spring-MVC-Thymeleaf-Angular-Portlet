@@ -13,11 +13,6 @@ import javax.portlet.ResourceResponse;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-/**
- * Created by abayer on 17.02.2015.
- * Automatic JSON serialization doesn't work yet in Portlet MVC
- * See: https://jira.spring.io/browse/SPR-7344
- */
 public class PortletResponseBodyImpl implements ModelAndViewResolver {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();

@@ -1,4 +1,4 @@
-angular.module('angularApp.services', [])
+angular.module(angularApp + '.services')
     .service('personService', ['$http', function ($http) {
         this.getPersons = function () {
             return $http({

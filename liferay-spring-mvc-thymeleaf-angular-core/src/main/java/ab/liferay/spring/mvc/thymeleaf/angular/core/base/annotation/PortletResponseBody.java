@@ -2,11 +2,8 @@ package ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation;
 
 import java.lang.annotation.*;
 
-/**
- * Created by abayer on 17.02.2015.
- */
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @Documented
-    public @interface PortletResponseBody {
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface PortletResponseBody {
 }

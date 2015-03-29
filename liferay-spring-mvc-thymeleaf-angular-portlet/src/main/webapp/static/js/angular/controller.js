@@ -1,4 +1,4 @@
-angular.module('angularApp.controllers', [])
+angular.module(angularApp + '.controllers')
     .controller('personController', ['personService', function (personService) {
         var thiz = this;
         thiz.persons = [];
