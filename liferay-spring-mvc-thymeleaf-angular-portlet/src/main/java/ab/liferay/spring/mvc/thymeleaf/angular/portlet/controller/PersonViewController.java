@@ -72,7 +72,7 @@ public class PersonViewController {
         jsonHtmlUrl.setResourceID(PersonRestController.HTML_JSON_RESOURCE);
         model.addAttribute("jsonHtmlUrl", jsonHtmlUrl.toString());
 
-        messageService.addMessage("index.info", MessageType.INFO);
+        messageService.addRequestMessage("index.info", MessageType.INFO);
 
         return "index/index";
     }
@@ -92,7 +92,7 @@ public class PersonViewController {
         _log.debug("handle render");
 
         long personId = ParamUtil.getLong(portletService.getPortletRequest(), "personId");
-        messageService.addMessage("render.info.person", new Object[]{personId}, MessageType.INFO);
+        messageService.addRequestMessage("render.info.person", new Object[]{personId}, MessageType.INFO);
         return "index/render";
     }
 
@@ -102,7 +102,7 @@ public class PersonViewController {
         _log.debug("handle action");
 
         long personId = ParamUtil.getLong(portletService.getPortletRequest(), "personId");
-        messageService.addMessage("action.warning.person", new Object[]{personId}, MessageType.WARNING);
+        messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.WARNING);
         portletService.getActionResponse().setRenderParameter("personId", String.valueOf(personId));
     }
 }

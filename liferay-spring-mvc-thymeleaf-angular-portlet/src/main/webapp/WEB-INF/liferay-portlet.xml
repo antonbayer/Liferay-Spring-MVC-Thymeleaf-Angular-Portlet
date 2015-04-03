@@ -18,6 +18,7 @@
         <footer-portlet-javascript>/static/js/angular/app-init.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/angular/controller.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/angular/service.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/static/js/angular/factory.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/angular/app-bootstrap.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/jquery/app.js</footer-portlet-javascript>
 

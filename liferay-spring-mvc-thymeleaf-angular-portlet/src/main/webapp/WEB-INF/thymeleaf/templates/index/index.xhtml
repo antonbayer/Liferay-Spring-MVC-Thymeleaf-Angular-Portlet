@@ -1,71 +1,65 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:core="http://core"
-      xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<div xmlns:th="http://www.thymeleaf.org">
+
     <script type="text/javascript" th:inline="javascript">
         var resourceURL = [[${resourceURL}]];
     </script>
-</head>
-<body>
 
-<h2 th:text="#{welcome}"></h2>
+    <h2 th:text="#{welcome}"></h2>
 
-<h3 th:text="#{description}"></h3>
+    <h3 th:text="#{description}"></h3>
 
-<div><img core:src="images/image.jpg"/></div>
+    <div><img core:src="images/image.jpg"/></div>
 
-<div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
-<div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
+    <div><a th:href="${renderUrl}">to RenderMapping with PersonId</a></div>
+    <div><a th:href="${actionUrl}">to ActionMapping with PersonId</a></div>
 
-<hr/>
+    <hr/>
 
-<core:messages group="global" type="info"/>
+    <core:messages group="global" type="info"/>
 
-<hr/>
+    <hr/>
 
-<div>
-    <h4>Thymeleaf App</h4>
+    <div>
+        <h4>Thymeleaf App</h4>
 
-    <div><a onclick="return updateFragment(this);" data-update="#persons" th:href="${ajaxUrl}">Update list with HTML
-        ajax call</a>
-        (First add persons via angular. Count fragment will not get updated.)
-    </div>
-    <div><a onclick="return updateFragments(this);" data-update="count=#count|persons=#persons"
-            th:href="${jsonHtmlUrl}">Update list with Json ajax call</a>
-        (First add persons via angular.s)
-    </div>
-    <div id="count" th:fragment="count">
-        Count: <span th:remove="tag" th:text="${count}"></span>
-    </div>
-    <table id="persons" th:fragment="persons">
-        <tbody>
-        <tr th:each="person : ${persons}">
-            <td th:text="${person.id}"></td>
-            <td th:text="${person.firstname}"></td>
-            <td th:text="${person.lastname}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<hr/>
-
-<div id="angularApp">
-    <div ng-controller="personController as personCtrl">
-        <h4>Angular App</h4>
-        <a ng-click="personCtrl.addPerson()" href="javascript:">add Person</a>
-        <table>
+        <div><a onclick="return updateFragment(this);" data-update="#persons" th:href="${ajaxUrl}">Update list with HTML
+            ajax call</a>
+            (First add persons via angular. Count fragment will not get updated.)
+        </div>
+        <div><a onclick="return updateFragments(this);" data-update="count=#count|persons=#persons"
+                th:href="${jsonHtmlUrl}">Update list with Json ajax call</a>
+            (First add persons via angular.s)
+        </div>
+        <div id="count" th:fragment="count">
+            Count: <span th:remove="tag" th:text="${count}"></span>
+        </div>
+        <table id="persons" th:fragment="persons">
             <tbody>
-            <tr ng-repeat="person in personCtrl.persons">
-                <td>{{person.id}}</td>
-                <td>{{person.firstname}}</td>
-                <td>{{person.lastname}}</td>
+            <tr th:each="person : ${persons}">
+                <td th:text="${person.id}"></td>
+                <td th:text="${person.firstname}"></td>
+                <td th:text="${person.lastname}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-</div>
 
-</body>
-</html>
+    <hr/>
+
+    <div id="angularApp">
+        <div ng-controller="personController as personCtrl">
+            <h4>Angular App</h4>
+            <a ng-click="personCtrl.addPerson()" href="javascript:">add Person</a>
+            <table>
+                <tbody>
+                <tr ng-repeat="person in personCtrl.persons">
+                    <td>{{person.id}}</td>
+                    <td>{{person.firstname}}</td>
+                    <td>{{person.lastname}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

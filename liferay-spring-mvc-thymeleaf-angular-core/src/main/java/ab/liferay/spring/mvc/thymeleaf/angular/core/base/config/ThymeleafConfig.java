@@ -18,7 +18,7 @@ import java.util.Set;
 @Configuration
 public class ThymeleafConfig {
 
-    private final String SYSTEM_PROPERTY_THYMELEAF_CACHEABLE ="thymeleaf.cacheable";
+    private final String SYSTEM_PROPERTY_THYMELEAF_CACHEABLE = "thymeleaf.cacheable";
 
     @Bean
     public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
