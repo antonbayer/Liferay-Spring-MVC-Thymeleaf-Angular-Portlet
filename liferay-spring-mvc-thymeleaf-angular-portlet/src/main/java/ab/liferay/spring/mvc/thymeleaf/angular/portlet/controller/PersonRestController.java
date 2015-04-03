@@ -43,7 +43,6 @@ public class PersonRestController {
 
     @ResourceMapping(REST_RESOURCE)
     @RequestMapping(method = RequestMethod.POST)
-    @PortletResponseBody
     public void rest(@PortletRequestBody Person person) {
 
         personService.addPerson(person);
@@ -69,4 +68,28 @@ public class PersonRestController {
 
         return jsonMap;
     }
+
+//    GET with querystring param: ...&person1={"firstname": "test-1-1"}&person2={"firstname": "test-1-2"} -> Working
+//    @ResourceMapping("get-json-1")
+//    @RequestMapping(method = RequestMethod.GET)
+//    public void test1(@PortletRequestBody("person1") Person p1, @PortletRequestBody("person2") Person p2) {
+//        System.out.println(p1.getFirstname() + " " + p2.getFirstname());
+//        return;
+//    }
+
+//    POST with body: {"person1": {"firstname": "test2-1"}, "person2": {"firstname": "test2-2"}} -> Working
+//    @ResourceMapping("post-json-2")
+//    @RequestMapping(method = RequestMethod.POST)
+//    public void test2(@PortletRequestBody("person1") Person p1, @PortletRequestBody("person2") Person p2, String x) {
+//        System.out.println(p1.getFirstname() + " " + p2.getFirstname());
+//        return;
+//    }
+
+//     POST with body: {"firstname": "test3"} -> Working
+//    @ResourceMapping("post-json-3")
+//    @RequestMapping(method = RequestMethod.POST)
+//    public void test3(@PortletRequestBody Person p, String x) {
+//        System.out.println(p.getFirstname());
+//        return;
+//    }
 }

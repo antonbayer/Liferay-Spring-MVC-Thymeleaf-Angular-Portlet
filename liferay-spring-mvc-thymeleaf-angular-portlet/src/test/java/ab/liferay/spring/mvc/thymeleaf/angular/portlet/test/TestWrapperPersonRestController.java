@@ -27,7 +27,6 @@ public class TestWrapperPersonRestController extends PersonRestController {
     }
 
     @RequestMapping(value = "/" + PersonRestController.REST_RESOURCE, method = RequestMethod.POST)
-    @ResponseBody
     @Override
     public void rest(@RequestBody Person person) {
         super.rest(person);
