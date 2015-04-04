@@ -1,7 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.config;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter.PortletRequestBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter.PortletRequestBodyWebArgumentResolver;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter.PortletResponseBodyImpl;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.component.request.RequestBodyCache;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.handler.MappingExceptionResolver;
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.PortletService;
 import org.springframework.context.MessageSource;
@@ -35,14 +37,19 @@ public class CoreConfig {
     }
 
     @Bean
-    public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
+    public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter(PortletRequestBodyWebArgumentResolver portletRequestBody) {
 
         AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter = new AnnotationMethodHandlerAdapter();
-        annotationMethodHandlerAdapter.setCustomArgumentResolver(new PortletRequestBodyImpl());
+        annotationMethodHandlerAdapter.setCustomArgumentResolver(portletRequestBody);
         annotationMethodHandlerAdapter.setCustomModelAndViewResolver(new PortletResponseBodyImpl());
         annotationMethodHandlerAdapter.setOrder(0);
 
         return annotationMethodHandlerAdapter;
+    }
+
+    @Bean
+    public PortletRequestBodyWebArgumentResolver portletRequestBody(RequestBodyCache requestBodyCache) {
+        return new PortletRequestBodyImpl(requestBodyCache);
     }
 
     @Bean

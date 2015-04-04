@@ -1,7 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.adapter;
 
 import ab.liferay.spring.mvc.thymeleaf.angular.core.base.annotation.PortletRequestBody;
+import ab.liferay.spring.mvc.thymeleaf.angular.core.base.component.request.RequestBodyCache;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.WebArgumentResolver;
@@ -11,17 +13,18 @@ import javax.portlet.ClientDataRequest;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-public class PortletRequestBodyImpl
-
-
-        implements WebArgumentResolver {
+public class PortletRequestBodyImpl implements PortletRequestBodyWebArgumentResolver {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
-    private static final String JSON_REQUESTBODY_CACHE_ATTRIBUTE = "JSON_REQUESTBODY_CACHE";
+    private final RequestBodyCache requestBodyCache;
+
+    @Autowired
+    public PortletRequestBodyImpl(RequestBodyCache requestBodyCache) {
+        this.requestBodyCache = requestBodyCache;
+    }
 
     @Override
     public Object resolveArgument(MethodParameter param, NativeWebRequest request) throws Exception {
-
 
         if (request.getNativeRequest() instanceof ClientDataRequest && param.hasParameterAnnotation(PortletRequestBody.class)) {
             String value = param.getParameterAnnotation(PortletRequestBody.class).value();
@@ -36,7 +39,7 @@ public class PortletRequestBodyImpl
                 throw new RuntimeException(MessageFormat.format("REST Method {0} for values not supported.", clientDataRequest.getMethod()));
             }
             if (isMethod(clientDataRequest, RequestMethod.POST)) {
-                return JSON_MAPPER.readValue(getRequestBody(clientDataRequest), param.getParameterType());
+                return JSON_MAPPER.readValue(clientDataRequest.getReader(), param.getParameterType());
             }
             throw new RuntimeException(MessageFormat.format("REST Method {0} for body not supported.", clientDataRequest.getMethod()));
         }
@@ -48,23 +51,19 @@ public class PortletRequestBodyImpl
     }
 
     private String getRequestBody(ClientDataRequest clientDataRequest) {
-        Object obj = clientDataRequest.getAttribute(JSON_REQUESTBODY_CACHE_ATTRIBUTE);
-        if (obj == null) {
+        if (requestBodyCache.getBody() == null) {
             StringBuilder builder = new StringBuilder();
             String aux = "";
             try {
                 while ((aux = clientDataRequest.getReader().readLine()) != null) {
                     builder.append(aux);
                 }
-                String json = builder.toString();
-
-                clientDataRequest.setAttribute(JSON_REQUESTBODY_CACHE_ATTRIBUTE, json);
-                return json;
+                requestBodyCache.setBody(builder.toString());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        return obj.toString();
+        return requestBodyCache.getBody();
 
     }
 }
