@@ -33,6 +33,11 @@ public class PortletServiceImpl implements PortletService {
     }
 
     @Override
+    public PortletPreferences getPortletPreferences() {
+        return getPortletRequest().getPreferences();
+    }
+
+    @Override
     public RenderRequest getRenderRequest() {
         PortletRequest o = getPortletRequest();
         if (o instanceof RenderRequest) {

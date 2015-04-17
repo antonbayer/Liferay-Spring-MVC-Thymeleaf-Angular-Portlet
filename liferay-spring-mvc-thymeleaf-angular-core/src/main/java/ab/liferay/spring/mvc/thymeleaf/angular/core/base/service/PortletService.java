@@ -44,4 +44,6 @@ public interface PortletService {
     WindowState getWindowStateNormal();
 
     String getStaticContentUrl(String path);
+
+    PortletPreferences getPortletPreferences();
 }
