@@ -1,8 +1,10 @@
 <%@ page import="ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.I18nMessageConstants" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.StringPool" %>
+<%@ page import="org.springframework.core.io.ClassPathResource" %>
+<%@ page import="java.nio.file.Files" %>
+<%@ page import="java.nio.file.Paths" %>
 <%@ page import="java.util.Locale" %>
-<%@ page import="java.util.ResourceBundle" %>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
 <%@ taglib prefix="aui" uri="http://liferay.com/tld/aui" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,11 +17,7 @@
                       title="i18n-configuration-title">
 
         <%
-            String template = "";
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("content/language_template");
-            for (String key : resourceBundle.keySet()) {
-                template += key + "=" + System.getProperty("line.separator");
-            }
+            String template = new String(Files.readAllBytes(Paths.get(new ClassPathResource(I18nMessageConstants.TEMPLATE_RESOURCE_BUNDLE_BASENAME + ".properties").getFile().getAbsolutePath())));
         %>
         <div>
             <div>Template</div>

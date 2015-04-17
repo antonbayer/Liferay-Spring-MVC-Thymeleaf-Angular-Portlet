@@ -38,16 +38,23 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
 
-        ResourceBundle resourceBundle = getResourceBundle(locale);
+        return new MessageFormat(getText(locale, code));
+    }
 
+    private String getText(Locale locale, String code) {
+
+        ResourceBundle resourceBundle = getResourceBundle(locale);
         String text;
         try {
             text = resourceBundle.getString(code);
-        } catch (MissingResourceException e) {
-            text = I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + "_" + locale;
+        } catch (MissingResourceException e1) {
+            try { // fallback to the portlet language bundle in resources/content
+                text = portletService.getPortletConfig().getResourceBundle(locale).getString(code);
+            } catch (MissingResourceException e2) {
+                text = I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + "_" + locale;
+            }
         }
-
-        return new MessageFormat(text);
+        return text;
     }
 
     private ResourceBundle getResourceBundle(Locale locale) {
@@ -89,7 +96,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         // check resourcebundle not every time. only very 5 minute
         DateTime newTimeStamp = new DateTime();
         if (newTimeStamp.isAfter(timestamp)) { // never set before or timeout
-            timestamp = newTimeStamp.plusMinutes(MINUTES);
+            timestamp = newTimeStamp.plusSeconds(MINUTES);
             PortletPreferences portletPreferences = portletService.getPortletPreferences();
             toUpdate = Boolean.valueOf(portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE));
             try {

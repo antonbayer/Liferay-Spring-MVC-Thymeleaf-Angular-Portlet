@@ -31,6 +31,8 @@
             <portlet-mode>view</portlet-mode>
         </supports>
 
+        <resource-bundle>content/language_template</resource-bundle>
+
         <portlet-info>
             <title>Demo Portlet</title>
             <short-title>Liferay Spring MVC Thymeleaf Angular Portlet</short-title>
