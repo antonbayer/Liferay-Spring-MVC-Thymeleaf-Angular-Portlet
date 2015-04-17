@@ -21,8 +21,6 @@ import java.util.*;
 @Service
 public class I18nMessageSourceImpl extends AbstractMessageSource implements MessageSource {
 
-    public static final String MISSING_PROPERTY_INDICATOR = "??##**!!__";
-    private static final String BASENAME = "language";
     private static final int MINUTES = 5;
     private final PortletService portletService;
     private final Map<Locale, ResourceBundle> resourceBundles;
@@ -46,7 +44,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         try {
             text = resourceBundle.getString(code);
         } catch (MissingResourceException e) {
-            text = MISSING_PROPERTY_INDICATOR + code + "_" + locale;
+            text = I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + "_" + locale;
         }
 
         return new MessageFormat(text);
@@ -76,7 +74,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
             e.printStackTrace();
         }
         ClassLoader loader = new URLClassLoader(urls);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASENAME, locale, loader);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(I18nMessageConstants.BASENAME, locale, loader);
         resourceBundles.put(locale, resourceBundle);
         return resourceBundle;
     }
@@ -93,9 +91,9 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         if (newTimeStamp.isAfter(timestamp)) { // never set before or timeout
             timestamp = newTimeStamp.plusMinutes(MINUTES);
             PortletPreferences portletPreferences = portletService.getPortletPreferences();
-            toUpdate = Boolean.valueOf(portletPreferences.getValue("language_toupdate", StringPool.FALSE));
+            toUpdate = Boolean.valueOf(portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE));
             try {
-                portletPreferences.setValue("language_toupdate", StringPool.FALSE);
+                portletPreferences.setValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE);
             } catch (ReadOnlyException e) {
                 e.printStackTrace();
             }
@@ -128,8 +126,8 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         if (dirExists) {
             for (Locale supportedLocale : LanguageUtil.getSupportedLocales()) {
                 PortletPreferences portletPreferences = portletService.getPortletPreferences();
-                String languageContent = portletPreferences.getValue("language_" + supportedLocale.toString(), StringPool.BLANK);
-                String filename = BASENAME + "_" + supportedLocale.toString() + ".properties";
+                String languageContent = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + supportedLocale.toString(), StringPool.BLANK);
+                String filename = I18nMessageConstants.BASENAME + "_" + supportedLocale.toString() + ".properties";
                 try {
                     PrintWriter writer = new PrintWriter(dir.getAbsolutePath() + "/" + filename, "UTF-8");
                     writer.print(languageContent);

@@ -1,3 +1,4 @@
+<%@ page import="ab.liferay.spring.mvc.thymeleaf.angular.core.base.service.I18nMessageConstants" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.StringPool" %>
 <%@ page import="java.util.Locale" %>
@@ -26,7 +27,7 @@
         </div>
         <%
             for (Locale supportedLocale : LanguageUtil.getAvailableLocales()) {
-                String key = "language_" + supportedLocale.toString();
+                String key = I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + supportedLocale.toString();
                 String preference = "preferences" + StringPool.DOUBLE_DASH + key + StringPool.DOUBLE_DASH;
                 String language = portletPreferences.getValue(key, StringPool.BLANK);
         %>
@@ -37,7 +38,7 @@
         </div>
         <%
             }
-            String preference = "preferences" + StringPool.DOUBLE_DASH + "language_toupdate" + StringPool.DOUBLE_DASH;
+            String preference = "preferences" + StringPool.DOUBLE_DASH + I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE + StringPool.DOUBLE_DASH;
             String value = String.valueOf(true);
         %>
         <aui:input type="hidden" name="<%= preference %>" value="<%= value%>"/>
