@@ -96,7 +96,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         // check resourcebundle not every time. only very 5 minute
         DateTime newTimeStamp = new DateTime();
         if (newTimeStamp.isAfter(timestamp)) { // never set before or timeout
-            timestamp = newTimeStamp.plusSeconds(MINUTES);
+            timestamp = newTimeStamp.plusMinutes(MINUTES);
             PortletPreferences portletPreferences = portletService.getPortletPreferences();
             toUpdate = Boolean.valueOf(portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE));
             try {
