@@ -12,7 +12,10 @@ Implemented according to liferay manual: https://dev.liferay.com/develop/tutoria
 
     <!-- Preference control goes here -->
     <aui:fieldset column="true">
+
+        <!-- import from liferay-spring-mvc-thymeleaf-angular-core copied by maven-war-plugin -->
         <%@include file="portlet_i18n_configuration.jsp" %>
+
         <aui:button-row>
             <aui:button type="submit"/>
         </aui:button-row>

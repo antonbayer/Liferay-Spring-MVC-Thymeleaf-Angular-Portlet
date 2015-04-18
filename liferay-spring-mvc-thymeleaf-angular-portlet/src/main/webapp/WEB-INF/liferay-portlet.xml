@@ -9,8 +9,7 @@
         <portlet-name>demo-portlet</portlet-name>
         <configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction
         </configuration-action-class>
-        <preferences-unique-per-layout>false</preferences-unique-per-layout>
-        <preferences-owned-by-group>true</preferences-owned-by-group>
+        <preferences-company-wide>true</preferences-company-wide>
         <instanceable>false</instanceable>
 
         <requires-namespaced-parameters>false</requires-namespaced-parameters>
