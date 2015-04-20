@@ -15,6 +15,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -136,7 +137,8 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
                 String languageContent = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + availableLocale.toString(), StringPool.BLANK);
                 String filename = I18nMessageConstants.BASENAME + "_" + availableLocale.toString() + ".properties";
                 try {
-                    PrintWriter writer = new PrintWriter(dir.getAbsolutePath() + "/" + filename, "UTF-8");
+                    PrintWriter writer = null;
+                    writer = new PrintWriter(dir.getAbsolutePath() + "/" + filename, String.valueOf(StandardCharsets.ISO_8859_1));
                     writer.print(languageContent);
                     writer.close();
                 } catch (FileNotFoundException e) {
