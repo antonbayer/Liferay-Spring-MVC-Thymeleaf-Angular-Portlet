@@ -131,10 +131,10 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
             dirExists = dir.mkdirs();
         }
         if (dirExists) {
-            for (Locale supportedLocale : LanguageUtil.getSupportedLocales()) {
+            for (Locale availableLocale : LanguageUtil.getAvailableLocales()) {
                 PortletPreferences portletPreferences = portletService.getPortletPreferences();
-                String languageContent = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + supportedLocale.toString(), StringPool.BLANK);
-                String filename = I18nMessageConstants.BASENAME + "_" + supportedLocale.toString() + ".properties";
+                String languageContent = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + availableLocale.toString(), StringPool.BLANK);
+                String filename = I18nMessageConstants.BASENAME + "_" + availableLocale.toString() + ".properties";
                 try {
                     PrintWriter writer = new PrintWriter(dir.getAbsolutePath() + "/" + filename, "UTF-8");
                     writer.print(languageContent);

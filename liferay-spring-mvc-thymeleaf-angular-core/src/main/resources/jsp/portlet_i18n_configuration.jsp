@@ -14,23 +14,25 @@
 <portlet:defineObjects/>
 <liferay-ui:panel-container extended="<%= true %>" id="infoButtonConfig" persistState="<%= true %>">
     <liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="infoButtonPanel" persistState="<%= true %>"
-                      title="i18n-configuration-title">
+                      title="Language Configuration">
 
         <%
             String template = new String(Files.readAllBytes(Paths.get(new ClassPathResource(I18nMessageConstants.TEMPLATE_RESOURCE_BUNDLE_BASENAME + ".properties").getFile().getAbsolutePath())));
         %>
         <div>
-            <div>Template</div>
-            <div><textarea rows="10" style="width: 100%;" readonly="readonly"><%= template %></textarea></div>
+            <div>Language Template</div>
+            <div><textarea rows="10" style="width: 100%; background: transparent;"
+                           readonly="readonly"><%= template %></textarea></div>
         </div>
         <%
-            for (Locale supportedLocale : LanguageUtil.getAvailableLocales()) {
-                String key = I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + supportedLocale.toString();
+            for (Locale availableLocale : LanguageUtil.getAvailableLocales()) {
+                String key = I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + availableLocale.toString();
                 String preference = "preferences" + StringPool.DOUBLE_DASH + key + StringPool.DOUBLE_DASH;
                 String language = portletPreferences.getValue(key, StringPool.BLANK);
+                String label = "Language " + availableLocale.toString();
         %>
         <div>
-            <div><aui:input type="textarea" rows="10" style="width: 100%;" name="<%= preference %>"
+            <div><aui:input label="<%= label %>" type="textarea" rows="10" style="width: 100%;" name="<%= preference %>"
                             value="<%= language %>"/>
             </div>
         </div>
