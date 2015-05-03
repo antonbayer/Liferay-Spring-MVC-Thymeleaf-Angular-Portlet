@@ -9,18 +9,21 @@ import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.portlet.PortletURL;
-import javax.portlet.RenderResponse;
-import javax.portlet.ResourceURL;
-import javax.portlet.WindowStateException;
+import javax.portlet.*;
+import java.io.IOException;
 import java.util.List;
 
 @ViewController
@@ -72,6 +75,21 @@ public class PersonViewController {
         jsonHtmlUrl.setResourceID(PersonRestController.HTML_JSON_RESOURCE);
         model.addAttribute("jsonHtmlUrl", jsonHtmlUrl.toString());
 
+        PortletURL friendlyActionRedirectUrl = response.createActionURL();
+        friendlyActionRedirectUrl.setParameter("action", "addRedirect");
+        friendlyActionRedirectUrl.setParameter("id", "5");
+        model.addAttribute("friendlyActionRedirectUrl", friendlyActionRedirectUrl.toString());
+
+        PortletURL friendlyActionForwardUrl = response.createActionURL();
+        friendlyActionForwardUrl.setParameter("action", "addForward");
+        friendlyActionForwardUrl.setParameter("id", "5");
+        model.addAttribute("friendlyActionForwardUrl", friendlyActionForwardUrl.toString());
+
+        PortletURL friendlyRenderUrl = response.createRenderURL();
+        friendlyRenderUrl.setParameter("render", "details");
+        friendlyRenderUrl.setParameter("id", "6");
+        model.addAttribute("friendlyRenderUrl", friendlyRenderUrl.toString());
+
         messageService.addRequestMessage("index.info", MessageType.INFO);
 
         return "index/index";
@@ -104,5 +122,40 @@ public class PersonViewController {
         long personId = ParamUtil.getLong(portletService.getPortletRequest(), "personId");
         messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.WARNING);
         portletService.getActionResponse().setRenderParameter("personId", String.valueOf(personId));
+    }
+
+    @ActionMapping(params = "action=addForward")
+    public void friendlyActionForward(ModelMap model, @RequestParam("id") final String personId) throws IOException {
+
+        _log.debug("handle friendly action forward");
+
+        messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.INFO);
+
+        portletService.getActionResponse().setRenderParameter("id", String.valueOf(personId));
+        portletService.getActionResponse().setRenderParameter("render", "details");
+    }
+
+    @ActionMapping(params = "action=addRedirect")
+    public void friendlyActionRedirect(ModelMap model, @RequestParam("id") final String personId) throws IOException {
+
+        _log.debug("handle friendly action redirect");
+
+        messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.INFO);
+
+        ThemeDisplay themeDisplay = (ThemeDisplay) portletService.getActionRequest().getAttribute(WebKeys.THEME_DISPLAY);
+        String portletName = portletService.getActionRequest().getAttribute(WebKeys.PORTLET_ID).toString();
+        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(portletService.getActionRequest()), portletName, themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE);
+        redirectURL.setParameter("render", "details");
+        redirectURL.setParameter("id", String.valueOf(personId));
+        portletService.getActionResponse().sendRedirect(redirectURL.toString());
+    }
+
+    @RenderMapping(params = "render=details")
+    public String friendlyRender(ModelMap model, @RequestParam("id") final String personId) {
+
+        _log.debug("handle friendly render");
+
+        messageService.addRequestMessage("render.info.person", new Object[]{personId}, MessageType.INFO);
+        return "index/render";
     }
 }

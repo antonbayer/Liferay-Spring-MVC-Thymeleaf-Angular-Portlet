@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 6.0.0//EN"
+        "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_0_0.dtd">
+
+<routes>
+    <route>
+        <pattern>/action/{action}/id/{id}</pattern>
+        <generated-parameter name="id">{id}</generated-parameter>
+        <generated-parameter name="action">{action}</generated-parameter>
+        <implicit-parameter name="p_p_lifecycle">1</implicit-parameter>
+        <!--<implicit-parameter name="p_p_id">demoportlet_WAR_liferayspringmvcthymeleafangularportlet</implicit-parameter>-->
+        <!--<implicit-parameter name="p_p_state">normal</implicit-parameter>-->
+        <!--<implicit-parameter name="p_p_mode">view</implicit-parameter>-->
+    </route>
+    <route>
+        <pattern>/render/{render}/id/{id}</pattern>
+        <generated-parameter name="id">{id}</generated-parameter>
+        <generated-parameter name="render">{render}</generated-parameter>
+        <!--<implicit-parameter name="p_p_id">demoportlet_WAR_liferayspringmvcthymeleafangularportlet</implicit-parameter>-->
+        <!--<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>-->
+        <!--<implicit-parameter name="p_p_state">normal</implicit-parameter>-->
+        <!--<implicit-parameter name="p_p_mode">view</implicit-parameter>-->
+    </route>
+</routes>

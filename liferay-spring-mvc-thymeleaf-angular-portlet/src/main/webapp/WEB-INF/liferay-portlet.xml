@@ -9,6 +9,12 @@
         <portlet-name>demo-portlet</portlet-name>
         <configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction
         </configuration-action-class>
+
+        <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper
+        </friendly-url-mapper-class>
+        <friendly-url-mapping>demo</friendly-url-mapping>
+        <friendly-url-routes>friendly-url-router.xml</friendly-url-routes>
+
         <preferences-company-wide>true</preferences-company-wide>
         <instanceable>false</instanceable>
 
@@ -24,7 +30,6 @@
         <footer-portlet-javascript>/static/js/angular/factory.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/angular/app-bootstrap.js</footer-portlet-javascript>
         <footer-portlet-javascript>/static/js/jquery/app.js</footer-portlet-javascript>
-
     </portlet>
 
 </liferay-portlet-app>
