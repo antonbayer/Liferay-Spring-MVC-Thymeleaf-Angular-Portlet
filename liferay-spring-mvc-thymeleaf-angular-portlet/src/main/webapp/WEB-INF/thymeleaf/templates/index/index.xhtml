@@ -3,12 +3,9 @@
     <script type="text/javascript" th:inline="javascript">
         var resourceURL = [[${resourceURL}]];
     </script>
-    action redirect
-    <div th:text="${friendlyActionRedirectUrl}"></div>
-    action forward
-    <div th:text="${friendlyActionForwardUrl}"></div>
-    render
-    <div th:text="${friendlyRenderUrl}"></div>
+    <div><a th:href="${friendlyActionRedirectUrl}">action redirect <span th:remove="tag" th:text="${friendlyActionRedirectUrl}"></span></a></div>
+    <div><a th:href="${friendlyActionForwardUrl}">action forward <span th:remove="tag" th:text="${friendlyActionForwardUrl}"></span></a></div>
+    <div><a th:href="${friendlyRenderUrl}">render <span th:remove="tag" th:text="${friendlyRenderUrl}"></span></a></div>
 
     <h2 th:text="#{welcome}"></h2>
 

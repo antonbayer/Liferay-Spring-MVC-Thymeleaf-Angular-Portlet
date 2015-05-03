@@ -63,7 +63,7 @@ public class CoreDialectImpl extends AbstractDialect implements CoreDialect {
             MessageType messageType = MessageType.getMessageTypeByName(type);
 
             final NestableNode parent = element.getParent();
-            MessageList messages = messageService.getRequestMessages(messageType, group);
+            MessageList messages = messageService.getRequestNFlashMessages(messageType, group);
             if (messages != null) {
                 Element container = new Element("ul");
                 element.addChild(container);

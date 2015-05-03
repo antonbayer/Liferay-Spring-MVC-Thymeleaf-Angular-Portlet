@@ -9,10 +9,6 @@ import ab.liferay.spring.mvc.thymeleaf.angular.portlet.service.PersonService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,9 +18,14 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.portlet.*;
+import javax.portlet.PortletURL;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceURL;
+import javax.portlet.WindowStateException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ViewController
 public class PersonViewController {
@@ -129,7 +130,7 @@ public class PersonViewController {
 
         _log.debug("handle friendly action forward");
 
-        messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.INFO);
+        messageService.addRequestMessage("action.forward.warning.person", new Object[]{personId}, MessageType.INFO);
 
         portletService.getActionResponse().setRenderParameter("id", String.valueOf(personId));
         portletService.getActionResponse().setRenderParameter("render", "details");
@@ -140,14 +141,12 @@ public class PersonViewController {
 
         _log.debug("handle friendly action redirect");
 
-        messageService.addRequestMessage("action.warning.person", new Object[]{personId}, MessageType.INFO);
+        messageService.addFlashMessage("action.redirect.warning.person", new Object[]{personId}, MessageType.INFO);
 
-        ThemeDisplay themeDisplay = (ThemeDisplay) portletService.getActionRequest().getAttribute(WebKeys.THEME_DISPLAY);
-        String portletName = portletService.getActionRequest().getAttribute(WebKeys.PORTLET_ID).toString();
-        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(portletService.getActionRequest()), portletName, themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE);
-        redirectURL.setParameter("render", "details");
-        redirectURL.setParameter("id", String.valueOf(personId));
-        portletService.getActionResponse().sendRedirect(redirectURL.toString());
+        Map map = new HashMap<String, String>();
+        map.put("render", "details");
+        map.put("id", String.valueOf(personId));
+        portletService.sendPortletRedirect(map);
     }
 
     @RenderMapping(params = "render=details")

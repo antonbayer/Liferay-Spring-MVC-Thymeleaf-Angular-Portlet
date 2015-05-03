@@ -26,11 +26,27 @@ public interface MessageService {
 
     void addRequestMessage(String message, Object[] arg, MessageType messageType, String group);
 
-    MessageList getRequestMessages(MessageType messageType, String group);
+    MessageList getRequestNFlashMessages(MessageType messageType, String group);
 
     String getMessage(String message);
 
     String getMessage(String message, Object[] arg);
 
     String getMessage(String message, Object[] arg, Locale locale);
+
+    void addFlashMessage(String message);
+
+    void addFlashMessage(String message, String group);
+
+    void addFlashMessage(String message, MessageType messageType);
+
+    void addFlashMessage(String message, MessageType messageType, String group);
+
+    void addFlashMessage(String message, Object[] arg);
+
+    void addFlashMessage(String message, Object[] arg, String group);
+
+    void addFlashMessage(String message, Object[] arg, MessageType messageType);
+
+    void addFlashMessage(String message, Object[] arg, MessageType messageType, String group);
 }

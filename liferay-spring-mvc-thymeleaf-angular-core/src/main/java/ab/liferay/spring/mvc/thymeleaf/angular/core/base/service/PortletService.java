@@ -1,7 +1,9 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
 import javax.portlet.*;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
 
 public interface PortletService {
 
@@ -46,4 +48,6 @@ public interface PortletService {
     String getStaticContentUrl(String path);
 
     PortletPreferences getPortletPreferences();
+
+    void sendPortletRedirect(Map<String, String> params) throws IOException;
 }

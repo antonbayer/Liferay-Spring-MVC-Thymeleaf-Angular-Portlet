@@ -61,11 +61,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void addRequestMessage(String message, Object[] arg, MessageType messageType, String group) {
         String fullMessage = messageSource.getMessage(message, arg, portletService.getLocale());
-        messageStore.addMessage(fullMessage, messageType, group);
+        messageStore.addRequestMessage(fullMessage, messageType, group);
     }
 
     @Override
-    public MessageList getRequestMessages(MessageType messageType, String group) {
+    public MessageList getRequestNFlashMessages(MessageType messageType, String group) {
         return messageStore.getMessages(messageType, group);
     }
 
@@ -82,5 +82,46 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public String getMessage(String message, Object[] arg, Locale locale) {
         return messageSource.getMessage(message, arg, locale);
+    }
+
+    @Override
+    public void addFlashMessage(String message) {
+        addFlashMessage(message, null, MESSAGE_DEFAULT_MESSAGE_TYPE, MESSAGE_DEFAULT_GROUP);
+    }
+
+    @Override
+    public void addFlashMessage(String message, String group) {
+        addFlashMessage(message, null, MESSAGE_DEFAULT_MESSAGE_TYPE, group);
+    }
+
+    @Override
+    public void addFlashMessage(String message, MessageType messageType) {
+        addFlashMessage(message, null, messageType, MESSAGE_DEFAULT_GROUP);
+    }
+
+    @Override
+    public void addFlashMessage(String message, MessageType messageType, String group) {
+        addFlashMessage(message, null, messageType, group);
+    }
+
+    @Override
+    public void addFlashMessage(String message, Object[] arg) {
+        addFlashMessage(message, arg, MESSAGE_DEFAULT_MESSAGE_TYPE, MESSAGE_DEFAULT_GROUP);
+    }
+
+    @Override
+    public void addFlashMessage(String message, Object[] arg, String group) {
+        addFlashMessage(message, arg, MESSAGE_DEFAULT_MESSAGE_TYPE, group);
+    }
+
+    @Override
+    public void addFlashMessage(String message, Object[] arg, MessageType messageType) {
+        addFlashMessage(message, arg, messageType, MESSAGE_DEFAULT_GROUP);
+    }
+
+    @Override
+    public void addFlashMessage(String message, Object[] arg, MessageType messageType, String group) {
+        String fullMessage = messageSource.getMessage(message, arg, portletService.getLocale());
+        messageStore.addFlashMessage(fullMessage, messageType, group);
     }
 }

@@ -2,14 +2,19 @@ package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
 
 @Service
 public class PortletServiceImpl implements PortletService {
@@ -35,6 +40,18 @@ public class PortletServiceImpl implements PortletService {
     @Override
     public PortletPreferences getPortletPreferences() {
         return getPortletRequest().getPreferences();
+    }
+
+    @Override
+    public void sendPortletRedirect(Map<String, String> params) throws IOException {
+
+        ThemeDisplay themeDisplay = (ThemeDisplay) getActionRequest().getAttribute(WebKeys.THEME_DISPLAY);
+        String portletName = getActionRequest().getAttribute(WebKeys.PORTLET_ID).toString();
+        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(getActionRequest()), portletName, themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE);
+        for (String key : params.keySet()) {
+            redirectURL.setParameter(key, params.get(key));
+        }
+        getActionResponse().sendRedirect(redirectURL.toString());
     }
 
     @Override
