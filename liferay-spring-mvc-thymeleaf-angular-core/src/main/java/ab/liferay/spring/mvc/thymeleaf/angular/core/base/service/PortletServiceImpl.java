@@ -1,8 +1,12 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;
-import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Layout;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.PortletURLFactoryUtil;
@@ -12,7 +16,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
@@ -43,15 +46,49 @@ public class PortletServiceImpl implements PortletService {
     }
 
     @Override
-    public void sendPortletRedirect(Map<String, String> params) throws IOException {
+    public ThemeDisplay getThemeDisplay() {
+        return ServiceContextThreadLocal.getServiceContext().getThemeDisplay();
+    }
 
-        ThemeDisplay themeDisplay = (ThemeDisplay) getActionRequest().getAttribute(WebKeys.THEME_DISPLAY);
-        String portletName = getActionRequest().getAttribute(WebKeys.PORTLET_ID).toString();
-        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(getActionRequest()), portletName, themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE);
+    @Override
+    public PortletURL getPortletUrl(Map<String, String> params) {
+        return getPortletUrl(params, getThemeDisplay().getLayout().getPlid(), PortalUtil.getPortletId(getPortletRequest()));
+    }
+
+
+    @Override
+    public PortletURL getPortletUrl(Map<String, String> params, String url, String portletName) {
+        Layout layout = null;
+        try {
+            layout = LayoutLocalServiceUtil.getFriendlyURLLayout(getThemeDisplay().getScopeGroupId(), false, url);
+        } catch (PortalException e) {
+            e.printStackTrace();
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
+        if (layout == null) {
+            throw new RuntimeException("no Layout.");
+        }
+        return getPortletUrl(params, layout.getPlid(), portletName);
+    }
+
+
+    private PortletURL getPortletUrl(Map<String, String> params, long plid, String portletName) {
+        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(getPortletRequest()), portletName, plid, PortletRequest.RENDER_PHASE);
         for (String key : params.keySet()) {
             redirectURL.setParameter(key, params.get(key));
         }
-        getActionResponse().sendRedirect(redirectURL.toString());
+        try {
+            redirectURL.setWindowState(LiferayWindowState.NORMAL);
+        } catch (WindowStateException e) {
+            e.printStackTrace();
+        }
+        try {
+            redirectURL.setPortletMode(PortletMode.VIEW);
+        } catch (PortletModeException e) {
+            e.printStackTrace();
+        }
+        return redirectURL;
     }
 
     @Override

@@ -146,7 +146,17 @@ public class PersonViewController {
         Map map = new HashMap<String, String>();
         map.put("render", "details");
         map.put("id", String.valueOf(personId));
-        portletService.sendPortletRedirect(map);
+
+        PortletURL internal = portletService.getPortletUrl(map);
+
+        String url = "/test";
+        String portletName = "demoportlet_WAR_liferayspringmvcthymeleafangularportlet";
+        PortletURL external = portletService.getPortletUrl(map, url, portletName);
+
+        _log.debug(internal);
+        _log.debug(external);
+
+        portletService.getActionResponse().sendRedirect(internal.toString());
     }
 
     @RenderMapping(params = "render=details")

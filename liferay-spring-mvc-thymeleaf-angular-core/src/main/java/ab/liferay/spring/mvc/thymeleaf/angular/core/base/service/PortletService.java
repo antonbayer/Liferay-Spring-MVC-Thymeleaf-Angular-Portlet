@@ -1,7 +1,8 @@
 package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
+import com.liferay.portal.theme.ThemeDisplay;
+
 import javax.portlet.*;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
@@ -12,6 +13,12 @@ public interface PortletService {
     PortletConfig getPortletConfig();
 
     PortletRequest getPortletRequest();
+
+    ThemeDisplay getThemeDisplay();
+
+    PortletURL getPortletUrl(Map<String, String> params);
+
+    PortletURL getPortletUrl(Map<String, String> params, String url, String portletName);
 
     RenderRequest getRenderRequest();
 
@@ -32,7 +39,7 @@ public interface PortletService {
     EventResponse getEventResponse();
 
     PortletSession getPortletSession();
-    
+
     Locale getLocale();
 
     WindowState getWindowStateExclusive();
@@ -48,6 +55,4 @@ public interface PortletService {
     String getStaticContentUrl(String path);
 
     PortletPreferences getPortletPreferences();
-
-    void sendPortletRedirect(Map<String, String> params) throws IOException;
 }
