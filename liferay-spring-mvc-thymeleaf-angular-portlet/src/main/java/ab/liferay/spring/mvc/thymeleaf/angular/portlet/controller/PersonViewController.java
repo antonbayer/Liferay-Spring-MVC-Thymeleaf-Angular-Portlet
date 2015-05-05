@@ -150,7 +150,7 @@ public class PersonViewController {
         PortletURL internal = portletService.getPortletUrl(map);
 
         String url = "/test";
-        String portletName = "demoportlet_WAR_liferayspringmvcthymeleafangularportlet";
+        String portletName = "demo-portlet";
         PortletURL external = portletService.getPortletUrl(map, url, portletName);
 
         _log.debug(internal);

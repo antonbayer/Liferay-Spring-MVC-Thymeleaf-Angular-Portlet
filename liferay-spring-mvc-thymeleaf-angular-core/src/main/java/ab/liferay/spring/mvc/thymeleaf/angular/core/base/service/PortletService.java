@@ -18,7 +18,9 @@ public interface PortletService {
 
     PortletURL getPortletUrl(Map<String, String> params);
 
-    PortletURL getPortletUrl(Map<String, String> params, String url, String portletName);
+    PortletURL getPortletUrl(Map<String, String> params, String url, String portletId);
+
+    String getPortletId(String portletName);
 
     RenderRequest getRenderRequest();
 

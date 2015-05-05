@@ -6,6 +6,7 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -16,6 +17,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -55,7 +57,6 @@ public class PortletServiceImpl implements PortletService {
         return getPortletUrl(params, getThemeDisplay().getLayout().getPlid(), PortalUtil.getPortletId(getPortletRequest()));
     }
 
-
     @Override
     public PortletURL getPortletUrl(Map<String, String> params, String url, String portletName) {
         Layout layout = null;
@@ -69,12 +70,12 @@ public class PortletServiceImpl implements PortletService {
         if (layout == null) {
             throw new RuntimeException("no Layout.");
         }
-        return getPortletUrl(params, layout.getPlid(), portletName);
+        return getPortletUrl(params, layout.getPlid(), getPortletId(portletName));
     }
 
+    private PortletURL getPortletUrl(Map<String, String> params, long plid, String portletId) {
+        PortletURL redirectURL = PortletURLFactoryUtil.create(getPortletRequest(), portletId, plid, PortletRequest.RENDER_PHASE);
 
-    private PortletURL getPortletUrl(Map<String, String> params, long plid, String portletName) {
-        PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(getPortletRequest()), portletName, plid, PortletRequest.RENDER_PHASE);
         for (String key : params.keySet()) {
             redirectURL.setParameter(key, params.get(key));
         }
@@ -212,5 +213,18 @@ public class PortletServiceImpl implements PortletService {
         PortletRequest portletRequest = getPortletRequest();
         HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
         return PortalUtil.getStaticResourceURL(httpServletRequest, portletRequest.getContextPath() + STATIC_CONTENT_RESOURCE_URL + path);
+    }
+
+    @Override
+    public String getPortletId(String portletName) {
+        String portletId = null;
+        List<com.liferay.portal.model.Portlet> portletList = PortletLocalServiceUtil.getPortlets();
+        for (
+                com.liferay.portal.model.Portlet portlet : portletList) {
+            if (portletName.equals(portlet.getPortletName())) {
+                return portlet.getPortletId();
+            }
+        }
+        throw new RuntimeException("no valid PortletName:" + portletName);
     }
 }
