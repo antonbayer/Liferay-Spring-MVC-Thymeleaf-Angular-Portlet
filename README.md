@@ -9,6 +9,8 @@ After playing around with several tutorials which have not fully filled my deman
  * 100% Java Config and no xml-file at all.
  * Custom Thymeleaf src-attribute for easy use in Portlets to get static resources: &lt;img sc:src="images/image.jpg" /&gt;
  * Service to render Thymeleaf templates on server into strings to return as json object for multi fragment updates via ajax.
+ * Added friendly url mapping and service methods to generate them - also to other pages and other portlets.
+ * Add FlashMessages for holding messages over a redirect from a ActionRequest to a RenderRequest.
 
 The project consists of 3 Maven dependencies:
 
