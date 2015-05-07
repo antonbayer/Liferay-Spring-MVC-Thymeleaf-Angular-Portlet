@@ -48,6 +48,11 @@ public class PortletServiceImpl implements PortletService {
     }
 
     @Override
+    public PortletContext getPortletContext() {
+        return getPortletSession().getPortletContext();
+    }
+
+    @Override
     public ThemeDisplay getThemeDisplay() {
         return ServiceContextThreadLocal.getServiceContext().getThemeDisplay();
     }
@@ -217,7 +222,6 @@ public class PortletServiceImpl implements PortletService {
 
     @Override
     public String getPortletId(String portletName) {
-        String portletId = null;
         List<com.liferay.portal.model.Portlet> portletList = PortletLocalServiceUtil.getPortlets();
         for (
                 com.liferay.portal.model.Portlet portlet : portletList) {

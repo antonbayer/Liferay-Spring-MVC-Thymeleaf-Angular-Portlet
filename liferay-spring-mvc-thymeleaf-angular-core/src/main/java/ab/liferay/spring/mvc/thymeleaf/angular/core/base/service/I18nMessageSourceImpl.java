@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractMessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.portlet.util.PortletUtils;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.ReadOnlyException;
@@ -50,7 +51,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
             text = resourceBundle.getString(code);
         } catch (MissingResourceException e1) {
             try { // fallback to the portlet language bundle in resources/content
-                text = portletService.getPortletConfig().getResourceBundle(locale).getString(code);
+                text = LanguageUtil.get(locale, code);
             } catch (MissingResourceException e2) {
                 text = I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + "_" + locale;
             }
@@ -97,7 +98,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         // check resourcebundle not every time. only very 5 minute
         DateTime newTimeStamp = new DateTime();
         if (newTimeStamp.isAfter(timestamp)) { // never set before or timeout
-            timestamp = newTimeStamp.plusMinutes(MINUTES);
+            timestamp = newTimeStamp.plusSeconds(MINUTES);
             PortletPreferences portletPreferences = portletService.getPortletPreferences();
             toUpdate = Boolean.valueOf(portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE));
             try {
@@ -151,6 +152,6 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
     }
 
     public String getDefaultPath() {
-        return System.getProperty("catalina.home") + "/../config/" + portletService.getPortletConfig().getPortletName() + "/languages";
+        return PortletUtils.getTempDir(portletService.getPortletContext()).getAbsolutePath() + "/language-bundles";
     }
 }

@@ -57,4 +57,6 @@ public interface PortletService {
     String getStaticContentUrl(String path);
 
     PortletPreferences getPortletPreferences();
+
+    PortletContext getPortletContext();
 }
