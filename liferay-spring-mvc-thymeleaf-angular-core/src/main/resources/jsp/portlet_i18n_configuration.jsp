@@ -39,9 +39,8 @@
         <%
             }
             String preference = "preferences" + StringPool.DOUBLE_DASH + I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE + StringPool.DOUBLE_DASH;
-            String value = String.valueOf(true);
         %>
-        <aui:input type="hidden" name="<%= preference %>" value="<%= value%>"/>
+        <aui:input type="hidden" name="<%= preference %>" value=""/>
 
     </liferay-ui:panel>
 </liferay-ui:panel-container>

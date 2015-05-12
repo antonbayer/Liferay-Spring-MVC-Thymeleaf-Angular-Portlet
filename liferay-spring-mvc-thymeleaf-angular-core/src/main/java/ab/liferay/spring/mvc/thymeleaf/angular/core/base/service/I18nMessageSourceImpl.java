@@ -2,6 +2,7 @@ package ab.liferay.spring.mvc.thymeleaf.angular.core.base.service;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.util.PortalUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,10 +34,14 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
     public I18nMessageSourceImpl(PortletService portletService) {
         this.portletService = portletService;
         resourceBundles = new HashMap<Locale, ResourceBundle>();
-        timestamp = new DateTime();
+        timestamp = new DateTime().minusMinutes(MINUTES); // garantees file generation on first run
         toUpdate = true;
     }
 
+    /**
+     * get {@link MessageFormat} by code and locale
+     * return .
+     */
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
 
@@ -46,17 +51,22 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
     private String getText(Locale locale, String code) {
 
         ResourceBundle resourceBundle = getResourceBundle(locale);
-        String text;
-        try {
-            text = resourceBundle.getString(code);
-        } catch (MissingResourceException e1) {
-            try { // fallback to the portlet language bundle in resources/content
-                text = LanguageUtil.get(locale, code);
-            } catch (MissingResourceException e2) {
-                text = I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + "_" + locale;
-            }
+        if (resourceBundle == null) {
+            return getFallback(locale, code);
         }
-        return text;
+        try {
+            return resourceBundle.getString(code);
+        } catch (MissingResourceException e) {
+            return getFallback(locale, code);
+        }
+    }
+
+    private String getFallback(Locale locale, String code) {
+        try { // fallback to the portlet language bundle in resources/content
+            return LanguageUtil.get(portletService.getPortletConfig(), locale, code);
+        } catch (MissingResourceException e) {
+            return I18nMessageConstants.MISSING_PROPERTY_INDICATOR + code + StringPool.UNDERLINE + locale;
+        }
     }
 
     private ResourceBundle getResourceBundle(Locale locale) {
@@ -83,26 +93,36 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
             e.printStackTrace();
         }
         ClassLoader loader = new URLClassLoader(urls);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(I18nMessageConstants.BASENAME, locale, loader);
-        resourceBundles.put(locale, resourceBundle);
+        ResourceBundle resourceBundle = null;
+        try {
+            resourceBundle = ResourceBundle.getBundle(I18nMessageConstants.BASENAME, locale, loader);
+            resourceBundles.put(locale, resourceBundle);
+        } catch (MissingResourceException e) {
+        }
         return resourceBundle;
     }
 
     private boolean isResourceBundleUpToDate() {
-
-        // first requested language code or already set to update
-        if (toUpdate) {
-            return !toUpdate;
-        }
-
-        // check resourcebundle not every time. only very 5 minute
+        // check resourcebundle not every time. only very x minutes
         DateTime newTimeStamp = new DateTime();
         if (newTimeStamp.isAfter(timestamp)) { // never set before or timeout
-            timestamp = newTimeStamp.plusSeconds(MINUTES);
-            PortletPreferences portletPreferences = portletService.getPortletPreferences();
-            toUpdate = Boolean.valueOf(portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE));
+            timestamp = newTimeStamp.plusMinutes(MINUTES);
+            toUpdate = updateToUpdate();
+            return !toUpdate; // update happened in flag
+        }
+        return true;
+    }
+
+    private synchronized boolean updateToUpdate() {
+        PortletPreferences portletPreferences = portletService.getPortletPreferences();
+        if (portletPreferences.getMap().size() == 0) {
+            return false;
+        }
+        String pref = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.BLANK).toString();
+        String key = getInstanceKey();
+        if (!pref.contains(key)) {
             try {
-                portletPreferences.setValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, StringPool.FALSE);
+                portletPreferences.setValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_TO_UPDATE, pref + key);
             } catch (ReadOnlyException e) {
                 e.printStackTrace();
             }
@@ -113,9 +133,13 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
             } catch (ValidatorException e) {
                 e.printStackTrace();
             }
-            return !toUpdate; // update happened in flag
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    private String getInstanceKey() {
+        return StringPool.PIPE + PortalUtil.getComputerAddress() + StringPool.EQUAL + PortalUtil.getComputerName() + StringPool.PIPE;
     }
 
     private synchronized void regenerateBundleFiles() {
@@ -127,6 +151,11 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
 
         resourceBundles.clear();
 
+        PortletPreferences portletPreferences = portletService.getPortletPreferences();
+        if (portletPreferences == null) {
+            return;
+        }
+
         File dir = new File(getDefaultPath());
         boolean dirExists = true;
         if (!dir.exists()) {
@@ -134,12 +163,11 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         }
         if (dirExists) {
             for (Locale availableLocale : LanguageUtil.getAvailableLocales()) {
-                PortletPreferences portletPreferences = portletService.getPortletPreferences();
                 String languageContent = portletPreferences.getValue(I18nMessageConstants.CONFIGURATION_LANGUAGE_PREFIX + availableLocale.toString(), StringPool.BLANK);
-                String filename = I18nMessageConstants.BASENAME + "_" + availableLocale.toString() + ".properties";
+                String filename = I18nMessageConstants.BASENAME + StringPool.UNDERLINE + availableLocale.toString() + I18nMessageConstants.RESOURCE_BUNDLE_FILENAME_SUFFIX;
                 try {
                     PrintWriter writer = null;
-                    writer = new PrintWriter(dir.getAbsolutePath() + "/" + filename, String.valueOf(StandardCharsets.ISO_8859_1));
+                    writer = new PrintWriter(dir.getAbsolutePath() + File.separator + filename, String.valueOf(StandardCharsets.ISO_8859_1));
                     writer.print(languageContent);
                     writer.close();
                 } catch (FileNotFoundException e) {
@@ -151,7 +179,7 @@ public class I18nMessageSourceImpl extends AbstractMessageSource implements Mess
         }
     }
 
-    public String getDefaultPath() {
-        return PortletUtils.getTempDir(portletService.getPortletContext()).getAbsolutePath() + "/language-bundles";
+    private String getDefaultPath() {
+        return PortletUtils.getTempDir(portletService.getPortletContext()).getAbsolutePath() + I18nMessageConstants.RESOURCE_DEFAULT_PATH;
     }
 }
